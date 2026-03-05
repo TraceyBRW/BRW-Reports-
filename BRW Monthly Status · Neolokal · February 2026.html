@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BRW Monthly Status · Neolokal · February 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&family=Outfit:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--teal:#00AEBC;--teal-lt:#9CFFFA;--teal-mid:#00909C;--teal-dim:rgba(0,174,188,0.12);--teal-bg:#E6F8FA;--coral:#FF7376;--coral-lt:#FFE4E5;--charcoal:#434443;--charcoal-lt:#6B6C6B;--gray-lav:#A2999E;--yellow:#F1EB6B;--yellow-lt:#FDFBE6;--white:#FFFFFF;--off-white:#F7F9F9;--rule:#E0ECED;--card:#FFFFFF;--page-bg:#F0F8F9;--red:#D63B3B;--amber:#D4820A;--green:#1A8C5A}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:var(--page-bg);color:var(--charcoal);min-height:100vh}
+.masthead{background:var(--white);border-bottom:3px solid var(--teal);position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,174,188,0.12)}
+.masthead-top{display:flex;align-items:center;justify-content:space-between;padding:14px 48px;border-bottom:1px solid var(--rule)}
+.brw-logo{display:flex;align-items:center;gap:10px}
+.logo-text{display:flex;flex-direction:column;line-height:1}
+.logo-the{font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.25em;color:var(--teal);text-transform:uppercase}
+.logo-breakroom{font-family:'Nunito',sans-serif;font-size:22px;font-weight:900;color:var(--charcoal);letter-spacing:0.01em;line-height:1.1}
+.logo-breakroom span{color:var(--teal)}
+.logo-wellness{font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.3em;color:var(--teal);text-transform:uppercase}
+.report-meta{text-align:right}
+.report-client{font-family:'Nunito',sans-serif;font-size:18px;font-weight:800;color:var(--charcoal);letter-spacing:0.05em}
+.report-date{font-family:'Roboto Mono',monospace;font-size:12px;color:var(--teal-mid);margin-top:2px}
+.report-tag{font-size:10.5px;color:var(--gray-lav);text-transform:uppercase;letter-spacing:0.12em;margin-top:1px}
+.tabs{display:flex;padding:0 48px;overflow-x:auto}
+.tab{padding:10px 20px;font-family:'Nunito',sans-serif;font-size:12.5px;font-weight:700;color:var(--charcoal-lt);letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;border-bottom:3px solid transparent;transition:all .18s;white-space:nowrap;user-select:none}
+.tab:hover{color:var(--teal)}
+.tab.active{color:var(--teal);border-bottom-color:var(--teal)}
+.panel{display:none;padding:32px 48px 60px;max-width:1300px;margin:0 auto}
+.panel.active{display:block}
+.glance{background:var(--teal);border-radius:12px;padding:28px 36px;margin-bottom:32px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;position:relative;overflow:hidden}
+.glance::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;border:30px solid rgba(255,255,255,0.08);pointer-events:none}
+.glance::after{content:'';position:absolute;top:-10px;right:80px;width:130px;height:130px;border-radius:50%;border:20px solid rgba(255,255,255,0.05);pointer-events:none}
+.glance-title{font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;color:var(--white);margin-bottom:8px}
+.glance-body{font-size:13.5px;color:rgba(255,255,255,0.8);line-height:1.7;max-width:680px}
+.glance-body strong{color:var(--yellow)}
+.glance-stats{display:flex;gap:14px;flex-shrink:0}
+.stat-pill{display:flex;flex-direction:column;align-items:center;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:10px;padding:14px 18px;min-width:84px}
+.stat-pill .num{font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:var(--white);line-height:1}
+.stat-pill .lbl{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.65);margin-top:5px;text-align:center}
+.section-title{font-family:'Nunito',sans-serif;font-size:18px;font-weight:800;color:var(--charcoal);margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.section-title::before{content:'';display:inline-block;width:4px;height:22px;background:var(--teal);border-radius:2px;flex-shrink:0}
+.section-desc{font-size:13px;color:var(--charcoal-lt);line-height:1.6;margin-bottom:20px;margin-left:14px;max-width:700px}
+.card-grid{display:grid;gap:18px;margin-bottom:28px}
+.cols-2{grid-template-columns:1fr 1fr}
+.cols-3{grid-template-columns:1fr 1fr 1fr}
+.cols-12{grid-template-columns:1fr 2fr}
+.cols-21{grid-template-columns:2fr 1fr}
+.card{background:var(--card);border-radius:12px;padding:22px 24px;box-shadow:0 1px 3px rgba(0,0,0,0.05),0 4px 14px rgba(0,174,188,0.06);border:1px solid var(--rule)}
+.card-title{font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--gray-lav);margin-bottom:16px}
+.chart-wrap{position:relative}
+.chart-wrap canvas{width:100%!important}
+.score-band{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px}
+.score-block{border-radius:10px;padding:16px 12px;text-align:center;border-top:5px solid transparent}
+.score-block .dim{font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px}
+.score-block .val{font-family:'Nunito',sans-serif;font-size:34px;font-weight:900;line-height:1}
+.score-block .max{font-size:11px;color:var(--gray-lav);margin-top:2px}
+.sc-red{background:#FEF0EF;border-top-color:var(--red)}.sc-red .val{color:var(--red)}.sc-red .dim{color:#8B2419}
+.sc-amber{background:#FEF5E7;border-top-color:var(--amber)}.sc-amber .val{color:var(--amber)}.sc-amber .dim{color:#8B5209}
+.sc-green{background:#E5F8EE;border-top-color:var(--green)}.sc-green .val{color:var(--green)}.sc-green .dim{color:#0E5E38}
+.sc-teal{background:var(--teal-bg);border-top-color:var(--teal)}.sc-teal .val{color:var(--teal-mid)}.sc-teal .dim{color:var(--teal-mid)}
+.data-table{width:100%;border-collapse:collapse;font-size:13px}
+.data-table th{background:var(--charcoal);color:var(--teal-lt);font-family:'Nunito',sans-serif;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;padding:9px 13px;text-align:left}
+.data-table th:not(:first-child){text-align:center}
+.data-table td{padding:9px 13px;border-bottom:1px solid var(--rule)}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:nth-child(even) td{background:var(--off-white)}
+.data-table td:not(:first-child){text-align:center;font-family:'Roboto Mono',monospace;font-size:12.5px}
+.td-red{color:var(--red)!important;font-weight:600}.td-amber{color:var(--amber)!important;font-weight:600}.td-green{color:var(--green)!important;font-weight:600}.td-bold{font-weight:700}
+.badge{display:inline-block;font-family:'Nunito',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;padding:3px 8px;border-radius:4px}
+.badge-red{background:#FEE2E0;color:var(--red)}.badge-amber{background:#FEF3CD;color:var(--amber)}.badge-green{background:#D1FAE5;color:var(--green)}.badge-teal{background:var(--teal-bg);color:var(--teal-mid)}.badge-coral{background:var(--coral-lt);color:#C0484B}
+.insight{background:var(--teal);border-radius:8px;padding:16px 20px;margin:16px 0}
+.insight p{font-size:13px;color:rgba(255,255,255,0.88);line-height:1.7}
+.insight strong{color:var(--yellow)}
+.quote-block{border-left:4px solid var(--teal);padding:14px 20px;background:var(--teal-bg);border-radius:0 8px 8px 0;margin:22px 0}
+.quote-block blockquote{font-family:'Nunito',sans-serif;font-size:16px;font-weight:700;color:var(--charcoal);line-height:1.6;font-style:italic;margin-bottom:5px}
+.quote-block cite{font-size:12px;color:var(--gray-lav);font-style:normal}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--charcoal-lt);margin-top:10px;align-items:center}
+.legend-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:4px}
+.priority-item{display:grid;grid-template-columns:200px 1fr 50px;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid var(--rule);font-size:12.5px}
+.priority-item:last-child{border-bottom:none}
+.priority-bar-wrap{background:var(--off-white);border-radius:4px;height:16px;overflow:hidden}
+.priority-bar{height:100%;border-radius:4px}
+.priority-val{font-family:'Roboto Mono',monospace;font-size:12px;font-weight:500;text-align:right}
+.mini-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px}
+.mini-stat{text-align:center;padding:12px;border-radius:8px;background:var(--off-white)}
+.mini-stat .mn{font-family:'Nunito',sans-serif;font-size:22px;font-weight:900}
+.mini-stat .ml{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--gray-lav);margin-top:3px}
+.rec-card{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,174,188,0.08);margin-bottom:16px;display:flex;border:1px solid var(--rule)}
+.rec-accent{width:6px;flex-shrink:0}
+.rec-body{padding:20px 22px;flex:1}
+.rec-label{font-family:'Nunito',sans-serif;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.16em;margin-bottom:5px}
+.rec-title{font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;color:var(--charcoal);margin-bottom:8px}
+.rec-text{font-size:13.5px;color:var(--charcoal);line-height:1.7;margin-bottom:10px}
+.rec-action{font-size:13px;color:var(--charcoal-lt);line-height:1.6;padding:10px 14px;background:var(--teal-bg);border-radius:6px;border-left:3px solid var(--teal)}
+.rec-action strong{color:var(--charcoal)}
+.spacer{height:28px}.spacer-sm{height:14px}
+.template-chip{display:inline-flex;align-items:center;gap:6px;background:var(--yellow);color:var(--charcoal);font-family:'Nunito',sans-serif;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;padding:4px 10px;border-radius:20px}
+.report-footer{text-align:center;font-size:11.5px;color:var(--gray-lav);padding:20px 48px 48px;border-top:2px solid var(--teal-bg);margin-top:8px}
+.footer-brand{color:var(--teal);font-weight:700}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--off-white)}::-webkit-scrollbar-thumb{background:var(--teal);border-radius:3px}
+</style>
+</head>
+<body>
+<div class="masthead">
+  <div class="masthead-top">
+    <div class="brw-logo">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+        <path d="M8 44 L8 24 Q8 9 26 9 Q44 9 44 24 L44 44" stroke="#00AEBC" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+        <path d="M15 44 L15 25 Q15 17 26 17 Q37 17 37 25 L37 44" stroke="#00AEBC" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <circle cx="22" cy="31" r="3.5" fill="#FF7376"/>
+        <rect x="8" y="39" width="18" height="5" rx="1.5" fill="#00AEBC"/>
+        <rect x="40" y="31" width="5" height="13" rx="1.5" fill="#434443"/>
+        <rect x="47" y="31" width="5" height="13" rx="1.5" fill="#434443"/>
+      </svg>
+      <div class="logo-text">
+        <span class="logo-the">The</span>
+        <span class="logo-breakroom">Break<span>Room</span></span>
+        <span class="logo-wellness">Wellness</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px">
+      <div class="template-chip">&#9632; BRW Monthly Status Template</div>
+      <div class="report-meta">
+        <div class="report-client">Neolokal</div>
+        <div class="report-date">February 2026 · Baseline Edition</div>
+        <div class="report-tag">Owners &amp; Shareholders · Confidential</div>
+      </div>
+    </div>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('overview',event)">At a Glance</div>
+    <div class="tab" onclick="showTab('industry',event)">Turkey Hospitality Baseline</div>
+    <div class="tab" onclick="showTab('neolokal',event)">Overall</div>
+    <div class="tab" onclick="showTab('foh',event)">Front of House</div>
+    <div class="tab" onclick="showTab('boh',event)">Back of House</div>
+    <div class="tab" onclick="showTab('survey',event)">Staff Survey</div>
+    <div class="tab" onclick="showTab('recs',event)">Recommendations</div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<div id="panel-overview" class="panel active">
+  <div class="glance">
+    <div>
+      <div class="glance-title">Report at a Glance — February 2026</div>
+      <div class="glance-body">This is the <strong>baseline edition</strong> of Neolokal's BRW monthly wellbeing report. Every future month will be measured against these benchmarks. Data from <strong>167 anonymous Daily Pulse check-ins</strong> across 13 working days (Feb 12–27), supplemented by the <strong>February 2026 Neolokal staff survey</strong> (7 responses). Industry context from the <strong>Turkey Hospitality Baseline</strong> — a November 2025 survey of 27 staff across multiple Istanbul restaurants.</div>
+    </div>
+    <div class="glance-stats">
+      <div class="stat-pill"><div class="num">167</div><div class="lbl">Check-ins</div></div>
+      <div class="stat-pill"><div class="num">13</div><div class="lbl">Active Days</div></div>
+      <div class="stat-pill"><div class="num">7</div><div class="lbl">Survey Resp.</div></div>
+      <div class="stat-pill"><div class="num">3.25</div><div class="lbl">Avg Score</div></div>
+    </div>
+  </div>
+  <div class="section-title">Overall Wellbeing Scores · February 2026</div>
+  <p class="section-desc">Five dimensions on a 1–5 scale. Below 2.5 = high concern · 2.5–3.2 = watch zone · above 3.2 = healthy.</p>
+  <div class="score-band">
+    <div class="score-block sc-amber"><div class="dim">Physical</div><div class="val">3.19</div><div class="max">out of 5</div></div>
+    <div class="score-block sc-amber"><div class="dim">Mental</div><div class="val">3.20</div><div class="max">out of 5</div></div>
+    <div class="score-block sc-amber"><div class="dim">Emotional</div><div class="val">3.14</div><div class="max">out of 5</div></div>
+    <div class="score-block sc-amber"><div class="dim">Recovery</div><div class="val">3.10</div><div class="max">out of 5</div></div>
+    <div class="score-block sc-teal"><div class="dim">Work Env</div><div class="val">3.64</div><div class="max">out of 5</div></div>
+  </div>
+  <div class="card-grid cols-3">
+    <div class="card"><div class="card-title">Pre vs Post-Shift · All Dimensions</div><div class="chart-wrap"><canvas id="c-pp-glance" height="200"></canvas></div></div>
+    <div class="card"><div class="card-title">BOH vs FOH · Score Comparison</div><div class="chart-wrap"><canvas id="c-bf-glance" height="200"></canvas></div></div>
+    <div class="card"><div class="card-title">Weekly Trend · Physical Score</div><div class="chart-wrap"><canvas id="c-wk-glance" height="200"></canvas></div></div>
+  </div>
+  <div class="card-grid cols-2">
+    <div class="card">
+      <div class="card-title">Why Staff Flag Low Scores</div>
+      <div class="chart-wrap" style="max-width:290px;margin:0 auto"><canvas id="c-rsn-glance" height="190"></canvas></div>
+      <div class="insight" style="margin-top:14px"><p><strong>80% of flagged low scores are professional (work-related)</strong> — not personal. The majority of staff stress is within management's direct scope to address.</p></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Key Signals This Month</div>
+      <table class="data-table"><thead><tr><th>Signal</th><th>Value</th><th>Status</th></tr></thead><tbody>
+        <tr><td>Post-shift Physical score</td><td class="td-red">2.03</td><td><span class="badge badge-red">High Concern</span></td></tr>
+        <tr><td>BOH Recovery score</td><td class="td-red">2.81</td><td><span class="badge badge-amber">Watch</span></td></tr>
+        <tr><td>BOH vs FOH Physical gap</td><td class="td-amber">−0.54</td><td><span class="badge badge-amber">Monitor</span></td></tr>
+        <tr><td>Work Environment score</td><td class="td-green">3.64</td><td><span class="badge badge-green">Positive</span></td></tr>
+        <tr><td>Week 3 vs Week 1 (all)</td><td class="td-green">+0.72 avg</td><td><span class="badge badge-green">Improving</span></td></tr>
+        <tr><td>Post-shift check-in rate</td><td class="td-amber">20%</td><td><span class="badge badge-teal">Build Habit</span></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="quote-block"><blockquote>"Happy staff = happy guest = happy boss."</blockquote><cite>— Neolokal staff member, February 2026 survey</cite></div>
+</div>
+
+<!-- INDUSTRY -->
+<div id="panel-industry" class="panel">
+  <div class="glance">
+    <div>
+      <div class="glance-title">Turkey Hospitality Industry — Baseline 2025</div>
+      <div class="glance-body">A November 2025 wellbeing survey of <strong>27 staff members</strong> across multiple Istanbul restaurants. This baseline is the <strong>recurring industry reference</strong> for all BRW programme comparisons going forward — not tied to a single venue.</div>
+    </div>
+    <div class="glance-stats">
+      <div class="stat-pill"><div class="num">27</div><div class="lbl">Respondents</div></div>
+      <div class="stat-pill"><div class="num">3</div><div class="lbl">Role Types</div></div>
+      <div class="stat-pill"><div class="num">Nov</div><div class="lbl">2025</div></div>
+    </div>
+  </div>
+  <div class="card-grid cols-3">
+    <div class="card">
+      <div class="card-title">Role Breakdown</div>
+      <div class="chart-wrap" style="max-width:230px;margin:0 auto"><canvas id="c-ind-roles" height="200"></canvas></div>
+      <div class="mini-stats">
+        <div class="mini-stat"><div class="mn" style="color:var(--teal)">12</div><div class="ml">Kitchen</div></div>
+        <div class="mini-stat"><div class="mn" style="color:var(--charcoal)">10</div><div class="ml">Service</div></div>
+        <div class="mini-stat"><div class="mn" style="color:var(--gray-lav)">5</div><div class="ml">Admin</div></div>
+      </div>
+    </div>
+    <div class="card"><div class="card-title">How Staff Start the Day</div><div class="chart-wrap"><canvas id="c-ind-start" height="180"></canvas></div></div>
+    <div class="card"><div class="card-title">Mental &amp; Emotional Challenges</div><div class="chart-wrap"><canvas id="c-ind-mental" height="180"></canvas></div></div>
+  </div>
+  <div class="spacer-sm"></div>
+  <div class="section-title">Wellbeing Priorities — Industry Baseline</div>
+  <p class="section-desc">15 wellbeing topics rated 1–3 by industry staff. These scores form the reusable comparison reference for all BRW clients.</p>
+  <div class="card-grid cols-2">
+    <div class="card"><div class="card-title">Priority Rankings — All 15 Topics</div><div id="ind-priorities"></div></div>
+    <div class="card">
+      <div class="card-title">Industry vs Neolokal — Priority Comparison</div>
+      <div class="chart-wrap"><canvas id="c-ind-compare" height="300"></canvas></div>
+      <div class="legend"><span><span class="legend-dot" style="background:var(--charcoal)"></span>Industry Baseline (Nov 25)</span><span><span class="legend-dot" style="background:var(--teal)"></span>Neolokal (Feb 26)</span></div>
+    </div>
+  </div>
+  <div class="insight"><p><strong>Industry-wide pattern:</strong> Mental fatigue (13/27) and inability to switch off (11/27) dominate. Nearly half of all respondents arrive rushed. Physical pain is almost universal among kitchen staff. Neolokal's data reflects these norms closely.</p></div>
+</div>
+
+<!-- OVERALL -->
+<div id="panel-neolokal" class="panel">
+  <div class="glance">
+    <div>
+      <div class="glance-title">Neolokal — Overall Wellbeing · February 2026</div>
+      <div class="glance-body"><strong>167 check-ins</strong> across 13 days. The most striking story is the gap between <strong>how staff arrive and how they leave</strong> — and the steady week-on-week upward trend ending the month stronger than it began.</div>
+    </div>
+    <div class="glance-stats">
+      <div class="stat-pill"><div class="num">167</div><div class="lbl">Total</div></div>
+      <div class="stat-pill"><div class="num">133</div><div class="lbl">Pre-Shift</div></div>
+      <div class="stat-pill"><div class="num">34</div><div class="lbl">Post-Shift</div></div>
+    </div>
+  </div>
+  <div class="section-title">Monthly Averages — All Staff</div>
+  <div class="score-band">
+    <div class="score-block sc-amber"><div class="dim">Physical</div><div class="val">3.19</div><div class="max">out of 5</div></div>
+    <div class="score-block sc-amber"><div class="dim">Mental</div><div class="val">3.20</div><div class="max">out of 5</div></div>
+    <div class="score-block sc-amber"><div class="dim">Emotional</div><div class="val">3.14</div><div class="max">out of 5</div></div>
+    <div class="score-block sc-amber"><div class="dim">Recovery</div><div class="val">3.10</div><div class="max">out of 5</div></div>
+    <div class="score-block sc-teal"><div class="dim">Work Env</div><div class="val">3.64</div><div class="max">out of 5</div></div>
+  </div>
+  <div class="card-grid cols-2">
+    <div class="card">
+      <div class="card-title">Pre-Shift vs Post-Shift · All Dimensions</div>
+      <div class="chart-wrap"><canvas id="c-neo-pp" height="230"></canvas></div>
+      <div class="legend" style="margin-top:10px"><span><span class="legend-dot" style="background:var(--teal)"></span>Pre-shift</span><span><span class="legend-dot" style="background:var(--coral)"></span>Post-shift</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Pre vs Post · Score Drop Table</div>
+      <table class="data-table"><thead><tr><th>Dimension</th><th>Pre</th><th>Post</th><th>Drop</th><th>Change</th></tr></thead><tbody>
+        <tr><td>Physical</td><td class="td-green">3.48</td><td class="td-red">2.03</td><td class="td-red">−1.45</td><td><span class="badge badge-red">−42%</span></td></tr>
+        <tr><td>Mental</td><td class="td-green">3.42</td><td class="td-red">2.35</td><td class="td-red">−1.07</td><td><span class="badge badge-red">−31%</span></td></tr>
+        <tr><td>Emotional</td><td class="td-green">3.27</td><td class="td-amber">2.65</td><td class="td-amber">−0.62</td><td><span class="badge badge-amber">−19%</span></td></tr>
+        <tr><td>Recovery</td><td class="td-green">3.30</td><td class="td-red">2.32</td><td class="td-red">−0.98</td><td><span class="badge badge-red">−30%</span></td></tr>
+        <tr><td>Work Env</td><td class="td-green">3.71</td><td class="td-amber">3.35</td><td class="td-amber">−0.36</td><td><span class="badge badge-amber">−10%</span></td></tr>
+      </tbody></table>
+      <div class="insight" style="margin-top:14px"><p>Physical wellbeing drops <strong>42%</strong> across a shift. Work Environment retains the strongest post-shift score — staff feel their environment is sound even when personally depleted.</p></div>
+    </div>
+  </div>
+  <div class="spacer-sm"></div>
+  <div class="section-title">Weekly Trend — February</div>
+  <div class="card-grid cols-12">
+    <div class="card"><div class="card-title">All 5 Dimensions · Weekly Movement</div><div class="chart-wrap"><canvas id="c-neo-wk" height="250"></canvas></div></div>
+    <div class="card">
+      <div class="card-title">Week-by-Week Summary</div>
+      <table class="data-table"><thead><tr><th>Week</th><th>Phys</th><th>Ment</th><th>Emot</th><th>Recv</th><th>WEnv</th></tr></thead><tbody>
+        <tr><td class="td-bold">Wk 1 · Feb 12–15</td><td class="td-amber">2.91</td><td class="td-amber">2.87</td><td class="td-amber">2.87</td><td class="td-amber">2.80</td><td class="td-amber">3.41</td></tr>
+        <tr><td class="td-bold">Wk 2 · Feb 17–21</td><td class="td-amber">3.18</td><td class="td-amber">3.31</td><td class="td-amber">3.19</td><td class="td-amber">3.15</td><td class="td-green">3.69</td></tr>
+        <tr><td class="td-bold">Wk 3 · Feb 24–27</td><td class="td-green">3.74</td><td class="td-green">3.69</td><td class="td-green">3.60</td><td class="td-green">3.63</td><td class="td-green">4.00</td></tr>
+        <tr style="background:#e6f8fa"><td class="td-bold" style="color:var(--teal-mid)">↑ Movement</td><td class="td-green">+0.83</td><td class="td-green">+0.82</td><td class="td-green">+0.73</td><td class="td-green">+0.83</td><td class="td-green">+0.59</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="spacer-sm"></div>
+  <div class="section-title">Why Staff Flag Low Scores</div>
+  <div class="card-grid cols-21">
+    <div class="card">
+      <div class="card-title">Reason Distribution — When Scores Are 1 or 2</div>
+      <div class="chart-wrap"><canvas id="c-neo-rsn" height="160"></canvas></div>
+      <table class="data-table" style="margin-top:14px"><thead><tr><th>Reason</th><th>Count</th><th>Share</th><th>Implication</th></tr></thead><tbody>
+        <tr><td>Professional</td><td>115</td><td class="td-red">80%</td><td>Within management scope</td></tr>
+        <tr><td>Personal</td><td>27</td><td class="td-amber">16%</td><td>Pastoral support</td></tr>
+        <tr><td>Prefer not to say</td><td>5</td><td>3%</td><td>Normal range</td></tr>
+        <tr style="background:#fff8e8"><td class="td-bold">Any score ≤ 2</td><td class="td-bold">81</td><td class="td-amber td-bold">49%</td><td>Just under half of entries</td></tr>
+      </tbody></table>
+    </div>
+    <div class="card">
+      <div class="card-title">Check-in Volume by Area</div>
+      <div class="chart-wrap" style="max-width:210px;margin:0 auto"><canvas id="c-neo-vol" height="210"></canvas></div>
+      <div class="mini-stats">
+        <div class="mini-stat"><div class="mn" style="color:var(--teal)">98</div><div class="ml">FOH</div></div>
+        <div class="mini-stat"><div class="mn" style="color:var(--coral)">69</div><div class="ml">BOH</div></div>
+        <div class="mini-stat"><div class="mn" style="color:var(--gray-lav)">167</div><div class="ml">Total</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOH -->
+<div id="panel-foh" class="panel">
+  <div class="glance">
+    <div>
+      <div class="glance-title">Front of House — February 2026</div>
+      <div class="glance-body"><strong>98 check-ins.</strong> FOH scores higher than average across all dimensions. Recovery (3.31) and Physical (3.41) notably stronger than BOH. Post-shift drops are still significant.</div>
+    </div>
+    <div class="glance-stats"><div class="stat-pill"><div class="num">98</div><div class="lbl">Check-ins</div></div><div class="stat-pill"><div class="num">3.37</div><div class="lbl">Avg Score</div></div></div>
+  </div>
+  <div class="section-title">FOH Monthly Averages</div>
+  <div class="score-band">
+    <div class="score-block sc-teal"><div class="dim">Physical</div><div class="val">3.41</div><div class="max">out of 5</div></div>
+    <div class="score-block sc-amber"><div class="dim">Mental</div><div class="val">3.30</div><div class="max">out of 5</div></div>
+    <div class="score-block sc-amber"><div class="dim">Emotional</div><div class="val">3.26</div><div class="max">out of 5</div></div>
+    <div class="score-block sc-amber"><div class="dim">Recovery</div><div class="val">3.31</div><div class="max">out of 5</div></div>
+    <div class="score-block sc-teal"><div class="dim">Work Env</div><div class="val">3.59</div><div class="max">out of 5</div></div>
+  </div>
+  <div class="card-grid cols-2">
+    <div class="card"><div class="card-title">FOH Pre vs Post-Shift</div><div class="chart-wrap"><canvas id="c-foh-pp" height="230"></canvas></div></div>
+    <div class="card">
+      <div class="card-title">FOH vs Restaurant Overall</div>
+      <div class="chart-wrap"><canvas id="c-foh-ov" height="230"></canvas></div>
+      <div class="legend" style="margin-top:8px"><span><span class="legend-dot" style="background:var(--teal)"></span>FOH</span><span><span class="legend-dot" style="background:var(--gray-lav)"></span>Overall</span></div>
+    </div>
+  </div>
+  <div class="section-title">FOH Weekly Trend</div>
+  <div class="card-grid cols-12">
+    <div class="card"><div class="card-title">FOH — 5 Dimensions · Weekly</div><div class="chart-wrap"><canvas id="c-foh-wk" height="240"></canvas></div></div>
+    <div class="card">
+      <div class="card-title">FOH vs Overall · Highlights</div>
+      <table class="data-table"><thead><tr><th>Metric</th><th>Value</th><th>vs Overall</th></tr></thead><tbody>
+        <tr><td>Physical avg</td><td class="td-green">3.41</td><td class="td-green">+0.22</td></tr>
+        <tr><td>Mental avg</td><td class="td-amber">3.30</td><td class="td-green">+0.10</td></tr>
+        <tr><td>Recovery avg</td><td class="td-amber">3.31</td><td class="td-green">+0.21</td></tr>
+        <tr><td>Work Env avg</td><td class="td-green">3.59</td><td class="td-amber">−0.05</td></tr>
+        <tr><td>Post-shift Physical</td><td class="td-amber">2.20</td><td class="td-green">+0.17 vs BOH</td></tr>
+      </tbody></table>
+      <div class="insight" style="margin-top:14px"><p>FOH staff report <strong>higher emotional scores</strong> than BOH, likely reflecting the social nature of floor work. End-of-service physical drops still substantial.</p></div>
+    </div>
+  </div>
+  <div class="section-title">FOH Reason Flags</div>
+  <div class="card-grid cols-2">
+    <div class="card"><div class="card-title">Low Score Reasons — FOH</div><div class="chart-wrap" style="max-width:250px;margin:0 auto"><canvas id="c-foh-rsn" height="190"></canvas></div></div>
+    <div class="card">
+      <div class="card-title">FOH Score Distribution</div>
+      <div class="chart-wrap"><canvas id="c-foh-dist" height="190"></canvas></div>
+      <div class="legend" style="margin-top:8px"><span><span class="legend-dot" style="background:var(--red)"></span>1</span><span><span class="legend-dot" style="background:var(--amber)"></span>2</span><span><span class="legend-dot" style="background:var(--yellow)"></span>3</span><span><span class="legend-dot" style="background:var(--green)"></span>4</span><span><span class="legend-dot" style="background:var(--teal)"></span>5</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- BOH -->
+<div id="panel-boh" class="panel">
+  <div class="glance">
+    <div>
+      <div class="glance-title">Back of House — February 2026</div>
+      <div class="glance-body"><strong>69 check-ins.</strong> BOH consistently lower than FOH across all dimensions. Physical (2.87) and Recovery (2.81) most concerning. Kitchen staff carry the heaviest wellbeing burden — validated by their survey responses: full-body pain, exhaustion, inability to decompress.</div>
+    </div>
+    <div class="glance-stats"><div class="stat-pill"><div class="num">69</div><div class="lbl">Check-ins</div></div><div class="stat-pill"><div class="num">3.09</div><div class="lbl">Avg Score</div></div></div>
+  </div>
+  <div class="section-title">BOH Monthly Averages</div>
+  <p class="section-desc">Physical and Recovery below 3.0 — requiring the most attention of any segment in this report.</p>
+  <div class="score-band">
+    <div class="score-block sc-red"><div class="dim">Physical</div><div class="val">2.87</div><div class="max">out of 5</div></div>
+    <div class="score-block sc-amber"><div class="dim">Mental</div><div class="val">3.07</div><div class="max">out of 5</div></div>
+    <div class="score-block sc-amber"><div class="dim">Emotional</div><div class="val">2.99</div><div class="max">out of 5</div></div>
+    <div class="score-block sc-red"><div class="dim">Recovery</div><div class="val">2.81</div><div class="max">out of 5</div></div>
+    <div class="score-block sc-teal"><div class="dim">Work Env</div><div class="val">3.71</div><div class="max">out of 5</div></div>
+  </div>
+  <div class="card-grid cols-2">
+    <div class="card"><div class="card-title">BOH Pre vs Post-Shift</div><div class="chart-wrap"><canvas id="c-boh-pp" height="230"></canvas></div></div>
+    <div class="card">
+      <div class="card-title">BOH vs FOH — Gap Analysis</div>
+      <div class="chart-wrap"><canvas id="c-boh-foh" height="230"></canvas></div>
+      <div class="legend" style="margin-top:8px"><span><span class="legend-dot" style="background:var(--coral)"></span>BOH</span><span><span class="legend-dot" style="background:var(--teal)"></span>FOH</span></div>
+    </div>
+  </div>
+  <div class="section-title">BOH Weekly Trend</div>
+  <div class="card-grid cols-12">
+    <div class="card"><div class="card-title">BOH — 5 Dimensions · Weekly</div><div class="chart-wrap"><canvas id="c-boh-wk" height="240"></canvas></div></div>
+    <div class="card">
+      <div class="card-title">BOH vs FOH — Gap Per Dimension</div>
+      <table class="data-table"><thead><tr><th>Dimension</th><th>BOH</th><th>FOH</th><th>Gap</th><th>Concern</th></tr></thead><tbody>
+        <tr><td>Physical</td><td class="td-red">2.87</td><td class="td-green">3.41</td><td class="td-red">−0.54</td><td><span class="badge badge-red">High</span></td></tr>
+        <tr><td>Recovery</td><td class="td-red">2.81</td><td class="td-amber">3.31</td><td class="td-red">−0.50</td><td><span class="badge badge-red">High</span></td></tr>
+        <tr><td>Emotional</td><td class="td-amber">2.99</td><td class="td-amber">3.26</td><td class="td-amber">−0.27</td><td><span class="badge badge-amber">Watch</span></td></tr>
+        <tr><td>Mental</td><td class="td-amber">3.07</td><td class="td-amber">3.30</td><td class="td-amber">−0.23</td><td><span class="badge badge-amber">Watch</span></td></tr>
+        <tr><td>Work Env</td><td class="td-green">3.71</td><td class="td-green">3.59</td><td class="td-green">+0.12</td><td><span class="badge badge-green">Good</span></td></tr>
+      </tbody></table>
+      <div class="insight" style="margin-top:12px"><p>BOH scores <strong>higher than FOH in Work Environment</strong> (3.71 vs 3.59). Kitchen staff value their workplace despite the physical toll — a genuine strength to build on.</p></div>
+    </div>
+  </div>
+  <div class="section-title">BOH Reason Flags</div>
+  <div class="card-grid cols-2">
+    <div class="card"><div class="card-title">Low Score Reasons — BOH</div><div class="chart-wrap" style="max-width:250px;margin:0 auto"><canvas id="c-boh-rsn" height="190"></canvas></div></div>
+    <div class="card">
+      <div class="card-title">BOH Score Distribution</div>
+      <div class="chart-wrap"><canvas id="c-boh-dist" height="190"></canvas></div>
+      <div class="legend" style="margin-top:8px"><span><span class="legend-dot" style="background:var(--red)"></span>1</span><span><span class="legend-dot" style="background:var(--amber)"></span>2</span><span><span class="legend-dot" style="background:var(--yellow)"></span>3</span><span><span class="legend-dot" style="background:var(--green)"></span>4</span><span><span class="legend-dot" style="background:var(--teal)"></span>5</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SURVEY -->
+<div id="panel-survey" class="panel">
+  <div class="glance">
+    <div>
+      <div class="glance-title">Staff Survey — Neolokal Baseline · February 2026</div>
+      <div class="glance-body"><strong>7 responses</strong> from Neolokal staff (4 service, 3 kitchen). Qualitative companion to the Daily Pulse — explains the <strong>"why"</strong> behind the scores. Priorities compared against the Turkey Hospitality Baseline.</div>
+    </div>
+    <div class="glance-stats"><div class="stat-pill"><div class="num">7</div><div class="lbl">Responses</div></div><div class="stat-pill"><div class="num">Feb</div><div class="lbl">2026</div></div></div>
+  </div>
+  <div class="card-grid cols-3">
+    <div class="card"><div class="card-title">How Staff Start the Day</div><div class="chart-wrap"><canvas id="c-sv-start" height="200"></canvas></div></div>
+    <div class="card"><div class="card-title">Mental &amp; Emotional Challenges</div><div class="chart-wrap"><canvas id="c-sv-mental" height="200"></canvas></div></div>
+    <div class="card">
+      <div class="card-title">End of Shift — How Staff Feel</div>
+      <div style="margin-top:8px;display:flex;flex-direction:column;gap:8px">
+        <div style="background:var(--coral-lt);border-radius:8px;padding:10px 14px;border-left:3px solid var(--coral)"><div style="font-size:11px;font-weight:700;color:#C0484B;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Exhausted / Drained</div><div style="font-size:13px;color:var(--charcoal);font-style:italic">"Bitkin ve tükenmiş" · "halsiz ve yorgun"</div></div>
+        <div style="background:#FEF5E7;border-radius:8px;padding:10px 14px;border-left:3px solid var(--amber)"><div style="font-size:11px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Tired / Aching</div><div style="font-size:13px;color:var(--charcoal);font-style:italic">"Yorgun" — multiple responses</div></div>
+        <div style="background:var(--teal-bg);border-radius:8px;padding:10px 14px;border-left:3px solid var(--teal)"><div style="font-size:11px;font-weight:700;color:var(--teal-mid);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Body Tense, Mind Lighter</div><div style="font-size:13px;color:var(--charcoal);font-style:italic">"Vücudum gerilmiş, mental olarak rahatlamış"</div></div>
+        <div style="background:#E5F8EE;border-radius:8px;padding:10px 14px;border-left:3px solid var(--green)"><div style="font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Slightly Tired</div><div style="font-size:13px;color:var(--charcoal);font-style:italic">"Hafif yorgun" — 1 respondent</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="spacer-sm"></div>
+  <div class="section-title">What Staff Would Change</div>
+  <div class="card-grid cols-2">
+    <div class="card">
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+        <div style="background:var(--off-white);border-radius:8px;padding:14px 16px;border-left:4px solid var(--teal)"><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-lav);margin-bottom:4px">Kitchen Staff</div><div style="font-size:13.5px;font-style:italic;color:var(--charcoal)">"Working hours and financial anxiety"</div></div>
+        <div style="background:var(--off-white);border-radius:8px;padding:14px 16px;border-left:4px solid var(--teal)"><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-lav);margin-bottom:4px">Kitchen Staff</div><div style="font-size:13.5px;font-style:italic;color:var(--charcoal)">"A more planned and organised working environment"</div></div>
+        <div style="background:var(--off-white);border-radius:8px;padding:14px 16px;border-left:4px solid var(--charcoal)"><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-lav);margin-bottom:4px">Service Staff</div><div style="font-size:13.5px;font-style:italic;color:var(--charcoal)">"Other colleagues' attitudes and mindset"</div></div>
+        <div style="background:var(--off-white);border-radius:8px;padding:14px 16px;border-left:4px solid var(--charcoal)"><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-lav);margin-bottom:4px">Service Staff</div><div style="font-size:13.5px;font-style:italic;color:var(--charcoal)">"Stress"</div></div>
+      </div>
+    </div>
+    <div class="card"><div class="card-title">Common Themes in Responses</div><div class="chart-wrap"><canvas id="c-sv-themes" height="220"></canvas></div></div>
+  </div>
+  <div class="spacer-sm"></div>
+  <div class="section-title">Priority Shift · Industry Baseline → Neolokal Feb 2026</div>
+  <div class="card-grid cols-2">
+    <div class="card"><div class="card-title">Priority Comparison</div><div class="chart-wrap"><canvas id="c-sv-pri" height="300"></canvas></div></div>
+    <div class="card">
+      <div class="card-title">What Changed Nov 2025 → Feb 2026</div>
+      <table class="data-table"><thead><tr><th>Topic</th><th>Nov 25</th><th>Feb 26</th><th>Signal</th></tr></thead><tbody>
+        <tr><td>Healthy routines</td><td>2.59</td><td class="td-green">2.80</td><td><span class="badge badge-green">▲ Rising</span></td></tr>
+        <tr><td>Reconnect with rest</td><td>2.46</td><td class="td-green">2.67</td><td><span class="badge badge-green">▲ Rising</span></td></tr>
+        <tr><td>Manage physical pain</td><td>2.67</td><td class="td-green">2.71</td><td><span class="badge badge-teal">▲ Stable+</span></td></tr>
+        <tr><td>Skills to do job better</td><td>2.85</td><td class="td-green">2.83</td><td><span class="badge badge-teal">— Stable</span></td></tr>
+        <tr><td>Sleep &amp; recovery</td><td>2.67</td><td class="td-green">2.67</td><td><span class="badge badge-teal">— Stable</span></td></tr>
+        <tr><td>Prevent burnout</td><td>2.65</td><td class="td-amber">2.40</td><td><span class="badge badge-amber">▼ Lower</span></td></tr>
+        <tr><td>Feel connected at work</td><td>2.50</td><td class="td-red">1.83</td><td><span class="badge badge-green">▼▼ Needs Met</span></td></tr>
+        <tr><td>Better relationships</td><td>2.46</td><td class="td-red">1.80</td><td><span class="badge badge-green">▼▼ Needs Met</span></td></tr>
+      </tbody></table>
+      <div class="insight" style="margin-top:12px"><p>The biggest drops in <strong>connection and relationships</strong> most likely mean these needs are already met at Neolokal. Rising priorities — <strong>routines, recovery, physical pain</strong> — align with what the Daily Pulse data shows.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- RECS -->
+<div id="panel-recs" class="panel">
+  <div class="glance">
+    <div>
+      <div class="glance-title">Recommended Focus Areas — March 2026</div>
+      <div class="glance-body">Four areas with the highest potential impact for the coming month. Directly derived from what the data shows and what staff have said in their own words.</div>
+    </div>
+  </div>
+  <div class="rec-card"><div class="rec-accent" style="background:var(--coral)"></div><div class="rec-body"><div class="rec-label" style="color:var(--coral)">Priority 1 · Urgent</div><div class="rec-title">Post-Shift Recovery — Back of House</div><div class="rec-text">Post-shift Physical scores drop to 2.03. BOH Recovery averages 2.81. Kitchen staff describe exhaustion, chronic full-body pain, and being unable to decompress after service. The single most urgent area in the data.</div><div class="rec-action"><strong>Suggested action:</strong> Introduce a short structured wind-down at the end of kitchen shifts — 5–10 minutes of guided stretching or breathing at a fixed time. Low cost, directly responsive to what staff have explicitly said.</div></div></div>
+  <div class="rec-card"><div class="rec-accent" style="background:var(--amber)"></div><div class="rec-body"><div class="rec-label" style="color:var(--amber)">Priority 2 · Structural</div><div class="rec-title">Shift Predictability &amp; Working Environment Structure</div><div class="rec-text">Survey responses consistently name working hours, unpredictability, and lack of planning as the core professional stressor. 80% of all low scores are work-attributed — management intervention can make a real difference here.</div><div class="rec-action"><strong>Suggested action:</strong> Review shift communication practices — how much notice staff have, clarity of expectations at start of service, and consistency of break allocation.</div></div></div>
+  <div class="rec-card"><div class="rec-accent" style="background:var(--teal)"></div><div class="rec-body"><div class="rec-label" style="color:var(--teal-mid)">Priority 3 · Investment</div><div class="rec-title">Skill Development — Honour the Top Priority</div><div class="rec-text">"Skills to do the job better" is the highest-rated priority in both surveys (2.83–2.85 out of 3). Staff are not asking for sympathy — they are asking to be developed. A meaningful distinction for how this programme is framed.</div><div class="rec-action"><strong>Suggested action:</strong> One targeted learning moment per month — product tasting, technique session, guest speaker. Even a single structured learning event signals real investment in staff capability.</div></div></div>
+  <div class="rec-card"><div class="rec-accent" style="background:var(--yellow)"></div><div class="rec-body"><div class="rec-label" style="color:#8B7B00">Priority 4 · Programme Health</div><div class="rec-title">Post-Shift Check-in Participation</div><div class="rec-text">167 check-ins is a strong start. Only 34 (20%) were post-shift — where the most important signals appear. The post-shift data reveals the true cost of each service and needs consistent capture.</div><div class="rec-action"><strong>Suggested action:</strong> A brief reminder at shift handover that the post-shift Pulse takes 60 seconds and is the most valuable check-in of the day. Emphasise anonymity. Frame it as staff having their say.</div></div></div>
+  <div class="spacer"></div>
+  <div class="section-title">Looking Ahead — What March Will Tell Us</div>
+  <div class="card-grid cols-2">
+    <div class="card">
+      <div class="card-title">Questions to Track in March</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
+        <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--rule)"><div style="width:26px;height:26px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:white;flex-shrink:0">1</div><div style="font-size:13.5px;line-height:1.5">Is the weekly upward trend continuing, or was the February improvement a one-month effect?</div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--rule)"><div style="width:26px;height:26px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:white;flex-shrink:0">2</div><div style="font-size:13.5px;line-height:1.5">Have post-shift recovery scores improved, particularly for BOH?</div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--rule)"><div style="width:26px;height:26px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:white;flex-shrink:0">3</div><div style="font-size:13.5px;line-height:1.5">Is the BOH / FOH gap in Physical and Recovery scores narrowing?</div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--rule)"><div style="width:26px;height:26px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:white;flex-shrink:0">4</div><div style="font-size:13.5px;line-height:1.5">Have post-shift check-in numbers increased above 20%?</div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0"><div style="width:26px;height:26px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:white;flex-shrink:0">5</div><div style="font-size:13.5px;line-height:1.5">Are professional-cause flags still dominant, or clustering around a specific dimension?</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Target Bands for March</div>
+      <table class="data-table"><thead><tr><th>Metric</th><th>Feb Baseline</th><th>March Target</th><th>Priority</th></tr></thead><tbody>
+        <tr><td>BOH Physical</td><td class="td-red">2.87</td><td class="td-green">&gt; 3.10</td><td><span class="badge badge-coral">Urgent</span></td></tr>
+        <tr><td>BOH Recovery</td><td class="td-red">2.81</td><td class="td-green">&gt; 3.00</td><td><span class="badge badge-coral">Urgent</span></td></tr>
+        <tr><td>Post-shift Physical</td><td class="td-red">2.03</td><td class="td-amber">&gt; 2.50</td><td><span class="badge badge-red">High</span></td></tr>
+        <tr><td>Overall Recovery</td><td class="td-amber">3.10</td><td class="td-green">&gt; 3.25</td><td><span class="badge badge-amber">Watch</span></td></tr>
+        <tr><td>Post-shift check-ins</td><td class="td-amber">20%</td><td class="td-green">&gt; 30%</td><td><span class="badge badge-amber">Watch</span></td></tr>
+        <tr><td>Work Environment</td><td class="td-green">3.64</td><td class="td-green">Maintain</td><td><span class="badge badge-green">Protect</span></td></tr>
+      </tbody></table>
+      <div class="quote-block" style="margin-top:16px"><blockquote>"Happy staff = happy guest = happy boss."</blockquote><cite>— Neolokal staff member, February 2026 survey</cite></div>
+    </div>
+  </div>
+</div>
+
+<div class="report-footer">
+  <span class="footer-brand">The BreakRoom Wellness</span> · BRW Monthly Status Template · Neolokal · February 2026 · Owners &amp; Shareholders Edition · Confidential<br>
+  Data period: February 1–28, 2026 · All Daily Pulse data is anonymous and aggregated · Next report: March 2026
+</div>
+
+<script>
+const C={teal:'#00AEBC',tealMid:'#00909C',tealLt:'#9CFFFA',coral:'#FF7376',charcoal:'#434443',grayLav:'#A2999E',yellow:'#F1EB6B',red:'#D63B3B',amber:'#D4820A',green:'#1A8C5A'};
+const dims=['Physical','Mental','Emotional','Recovery','Work Env'];
+const shortDims=['Phys','Ment','Emot','Recv','WEnv'];
+const overall=[3.19,3.20,3.14,3.10,3.64];
+const boh=[2.87,3.07,2.99,2.81,3.71];
+const foh=[3.41,3.30,3.26,3.31,3.59];
+const pre=[3.48,3.42,3.27,3.30,3.71];
+const post=[2.03,2.35,2.65,2.32,3.35];
+const foh_pre=[3.65,3.55,3.40,3.50,3.80];
+const foh_post=[2.20,2.50,2.80,2.45,3.30];
+const boh_pre=[3.25,3.25,3.10,3.05,3.60];
+const boh_post=[1.85,2.15,2.45,2.15,3.40];
+const weekScores=[[2.91,2.87,2.87,2.80,3.41],[3.18,3.31,3.19,3.15,3.69],[3.74,3.69,3.60,3.63,4.00]];
+const weekFOH=[[3.10,3.05,3.00,2.95,3.50],[3.40,3.45,3.30,3.35,3.75],[3.85,3.75,3.70,3.70,4.05]];
+const weekBOH=[[2.65,2.65,2.70,2.60,3.30],[2.90,3.15,3.05,2.90,3.62],[3.60,3.60,3.45,3.50,3.92]];
+const DC=[C.teal,C.coral,C.yellow,C.green,C.grayLav];
+const bOpts={responsive:true,plugins:{legend:{display:false},tooltip:{bodyFont:{family:'Roboto Mono'},titleFont:{family:'Outfit'}}},scales:{x:{ticks:{font:{family:'Outfit',size:11}},grid:{color:'rgba(0,0,0,0.04)'}},y:{min:0,max:5,ticks:{font:{family:'Roboto Mono',size:10}},grid:{color:'rgba(0,0,0,0.06)'}}}};
+function showTab(n,e){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById('panel-'+n).classList.add('active');if(e&&e.target)e.target.classList.add('active')}
+function pp(id,p,po){const c=document.getElementById(id);if(!c)return;new Chart(c,{type:'bar',data:{labels:shortDims,datasets:[{label:'Pre-shift',data:p,backgroundColor:C.teal+'CC',borderRadius:5,borderSkipped:false},{label:'Post-shift',data:po,backgroundColor:C.coral+'CC',borderRadius:5,borderSkipped:false}]},options:{...bOpts,plugins:{legend:{display:true,labels:{font:{family:'Outfit',size:11},boxWidth:12}}}}})}
+function donut(id,lb,da,cl){const c=document.getElementById(id);if(!c)return;new Chart(c,{type:'doughnut',data:{labels:lb,datasets:[{data:da,backgroundColor:cl,borderWidth:2,borderColor:'#fff',hoverOffset:6}]},options:{responsive:true,cutout:'60%',plugins:{legend:{display:true,position:'bottom',labels:{font:{family:'Outfit',size:11},boxWidth:12,padding:10}},tooltip:{bodyFont:{family:'Roboto Mono'}}}}})}
+function line(id,lb,ds){const c=document.getElementById(id);if(!c)return;new Chart(c,{type:'line',data:{labels:lb,datasets:ds},options:{...bOpts,plugins:{legend:{display:true,labels:{font:{family:'Outfit',size:10},boxWidth:12,padding:8}}},elements:{line:{tension:0.35,borderWidth:2.5},point:{radius:4,hoverRadius:6}}}})}
+function horiz(id,lb,da,cl){const c=document.getElementById(id);if(!c)return;new Chart(c,{type:'bar',data:{labels:lb,datasets:[{data:da,backgroundColor:cl,borderRadius:4}]},options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{family:'Roboto Mono',size:10}},grid:{color:'rgba(0,0,0,0.06)'}},y:{ticks:{font:{family:'Outfit',size:11}},grid:{display:false}}}}})}
+window.addEventListener('load',()=>{
+  // OVERVIEW
+  pp('c-pp-glance',pre,post);
+  new Chart(document.getElementById('c-bf-glance'),{type:'bar',data:{labels:shortDims,datasets:[{label:'BOH',data:boh,backgroundColor:C.coral+'BB',borderRadius:5},{label:'FOH',data:foh,backgroundColor:C.teal+'BB',borderRadius:5}]},options:{...bOpts,plugins:{legend:{display:true,labels:{font:{family:'Outfit',size:11},boxWidth:12}}}}});
+  line('c-wk-glance',['Wk 1','Wk 2','Wk 3'],[{label:'FOH Physical',data:weekFOH.map(w=>w[0]),borderColor:C.teal,backgroundColor:C.teal+'15',fill:true},{label:'BOH Physical',data:weekBOH.map(w=>w[0]),borderColor:C.coral,backgroundColor:C.coral+'15',fill:true}]);
+  donut('c-rsn-glance',['Professional','Personal','Prefer not to say'],[115,27,5],[C.coral,C.amber,C.grayLav]);
+  // INDUSTRY
+  donut('c-ind-roles',['Kitchen (12)','Service (10)','Admin (5)'],[12,10,5],[C.teal,C.charcoal,C.grayLav]);
+  horiz('c-ind-start',['Small routine','Rushed / no time','Tense / anxious','Ready & calm'],[12,11,2,2],[C.green,C.amber,C.coral,C.teal]);
+  horiz('c-ind-mental',["Mental fatigue","Can't switch off","Burnout","Anxiety","None"],[13,11,8,6,3],[C.coral,C.amber,C.yellow,'#E0D000',C.teal]);
+  const iTop=[['Skills to do job better',2.85],['Find meaning & joy daily',2.75],['Manage physical pain',2.67],['Improve sleep & recovery',2.67],['Prevent burnout',2.65],['Reduce stress & anxiety',2.62],['Daily energy & focus',2.59],['Healthy routines',2.59],['Personal finance',2.54],['Feel connected at work',2.50],['Better relationships',2.46],['Reconnect with rhythms',2.46],['Volunteer / community',2.42],['Self-compassion',2.33],['Healthier limits',2.12]];
+  const nTop={'Skills to do job better':2.83,'Manage physical pain':2.71,'Improve sleep & recovery':2.67,'Healthy routines':2.80,'Reconnect with rhythms':2.67,'Daily energy & focus':2.50,'Find meaning & joy daily':2.50,'Reduce stress & anxiety':2.40,'Prevent burnout':2.40,'Personal finance':2.33,'Volunteer / community':2.17,'Self-compassion':2.00,'Feel connected at work':1.83,'Healthier limits':1.80,'Better relationships':1.80};
+  const pc=document.getElementById('ind-priorities');
+  iTop.sort((a,b)=>b[1]-a[1]).forEach(([l,v])=>{const pct=Math.round((v/3)*100);const col=v>=2.7?C.teal:v>=2.5?C.tealMid:C.grayLav;pc.innerHTML+=`<div class="priority-item"><div class="priority-label">${l}</div><div class="priority-bar-wrap"><div class="priority-bar" style="width:${pct}%;background:${col}"></div></div><div class="priority-val" style="color:${col}">${v.toFixed(2)}</div></div>`});
+  const cL=iTop.sort((a,b)=>b[1]-a[1]).map(t=>t[0]);
+  new Chart(document.getElementById('c-ind-compare'),{type:'bar',data:{labels:cL.map(l=>l.length>20?l.slice(0,18)+'…':l),datasets:[{label:'Industry Baseline Nov 25',data:cL.map(l=>iTop.find(t=>t[0]===l)[1]),backgroundColor:C.charcoal+'BB',borderRadius:4},{label:'Neolokal Feb 26',data:cL.map(l=>nTop[l]||0),backgroundColor:C.teal+'BB',borderRadius:4}]},options:{indexAxis:'y',responsive:true,plugins:{legend:{display:true,position:'top',labels:{font:{family:'Outfit',size:11},boxWidth:12}}},scales:{x:{min:0,max:3,ticks:{font:{family:'Roboto Mono',size:10}}},y:{ticks:{font:{family:'Outfit',size:10}},grid:{display:false}}}}});
+  // OVERALL
+  pp('c-neo-pp',pre,post);
+  line('c-neo-wk',['Wk 1','Wk 2','Wk 3'],dims.map((d,i)=>({label:d,data:weekScores.map(w=>w[i]),borderColor:DC[i],backgroundColor:DC[i]+'15',fill:false})));
+  donut('c-neo-rsn',['Professional','Personal','Prefer not to say'],[115,27,5],[C.coral,C.amber,C.grayLav]);
+  donut('c-neo-vol',['FOH (98)','BOH (69)'],[98,69],[C.teal,C.coral]);
+  // FOH
+  pp('c-foh-pp',foh_pre,foh_post);
+  new Chart(document.getElementById('c-foh-ov'),{type:'bar',data:{labels:shortDims,datasets:[{label:'FOH',data:foh,backgroundColor:C.teal+'CC',borderRadius:5},{label:'Overall',data:overall,backgroundColor:C.grayLav+'88',borderRadius:5}]},options:{...bOpts,plugins:{legend:{display:true,labels:{font:{family:'Outfit',size:11},boxWidth:12}}}}});
+  line('c-foh-wk',['Wk 1','Wk 2','Wk 3'],dims.map((d,i)=>({label:d,data:weekFOH.map(w=>w[i]),borderColor:DC[i],backgroundColor:DC[i]+'10',fill:false})));
+  donut('c-foh-rsn',['Professional','Personal','Prefer not to say'],[62,12,2],[C.coral,C.amber,C.grayLav]);
+  new Chart(document.getElementById('c-foh-dist'),{type:'bar',data:{labels:['1','2','3','4','5'],datasets:[{data:[38,72,148,140,92],backgroundColor:[C.red,C.amber,C.yellow,C.green,C.teal],borderRadius:5}]},options:{...bOpts,plugins:{legend:{display:false}}}});
+  // BOH
+  pp('c-boh-pp',boh_pre,boh_post);
+  new Chart(document.getElementById('c-boh-foh'),{type:'bar',data:{labels:shortDims,datasets:[{label:'BOH',data:boh,backgroundColor:C.coral+'CC',borderRadius:5},{label:'FOH',data:foh,backgroundColor:C.teal+'CC',borderRadius:5}]},options:{...bOpts,plugins:{legend:{display:true,labels:{font:{family:'Outfit',size:11},boxWidth:12}}}}});
+  line('c-boh-wk',['Wk 1','Wk 2','Wk 3'],dims.map((d,i)=>({label:d,data:weekBOH.map(w=>w[i]),borderColor:DC[i],backgroundColor:DC[i]+'10',fill:false})));
+  donut('c-boh-rsn',['Professional','Personal','Prefer not to say'],[53,15,3],[C.coral,C.amber,C.grayLav]);
+  new Chart(document.getElementById('c-boh-dist'),{type:'bar',data:{labels:['1','2','3','4','5'],datasets:[{data:[45,57,105,92,46],backgroundColor:[C.red,C.amber,C.yellow,C.green,C.teal],borderRadius:5}]},options:{...bOpts,plugins:{legend:{display:false}}}});
+  // SURVEY
+  new Chart(document.getElementById('c-sv-start'),{type:'doughnut',data:{labels:['Tense/anxious','Rushed','Small routine','Ready & calm'],datasets:[{data:[2,2,2,1],backgroundColor:[C.coral,C.amber,C.teal,C.green],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,cutout:'55%',plugins:{legend:{display:true,position:'bottom',labels:{font:{family:'Outfit',size:11},boxWidth:12,padding:8}}}}});
+  horiz('c-sv-mental',["Can't switch off","Mental fatigue","Burnout","Anxiety","None"],[4,3,2,2,2],[C.coral,C.amber,C.yellow,'#E0D000',C.teal]);
+  new Chart(document.getElementById('c-sv-themes'),{type:'bar',data:{labels:['Structure &\nplanning','Financial\nanxiety','Colleagues\nattitudes','Recovery\n& sleep','Skills &\nlearning'],datasets:[{data:[3,2,2,2,2],backgroundColor:[C.teal,C.amber,C.coral,C.green,C.yellow],borderRadius:5}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{family:'Outfit',size:10}}},y:{max:4,ticks:{font:{family:'Roboto Mono',size:10},stepSize:1}}}}});
+  const svT=['Skills','Pain Mgmt','Sleep/Recov','Routines','Energy','Burnout','Meaning','Finance'];
+  new Chart(document.getElementById('c-sv-pri'),{type:'bar',data:{labels:svT,datasets:[{label:'Industry Baseline (Nov 25)',data:[2.85,2.67,2.67,2.59,2.59,2.65,2.75,2.54],backgroundColor:C.charcoal+'BB',borderRadius:4},{label:'Neolokal (Feb 26)',data:[2.83,2.71,2.67,2.80,2.50,2.40,2.50,2.33],backgroundColor:C.teal+'BB',borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:true,position:'top',labels:{font:{family:'Outfit',size:11},boxWidth:12}}},scales:{x:{ticks:{font:{family:'Outfit',size:11}}},y:{min:0,max:3,ticks:{font:{family:'Roboto Mono',size:10}}}}}});
+});
+</script>
+</body>
+</html>
