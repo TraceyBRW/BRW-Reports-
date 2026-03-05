@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neolokal · Manager Report · February 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Outfit:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:#00AEBC; --tm:#00909C; --tl:#9CFFFA; --tb:#E6F8FA;
+  --coral:#FF7376; --cl:#FFE4E5;
+  --ch:#434443; --chl:#6B6C6B;
+  --gl:#A2999E; --ye:#F1EB6B; --yl:#FDFBE6;
+  --wh:#FFFFFF; --ow:#F7F9F9; --ru:#E0ECED; --pg:#F0F8F9;
+  --c1:#FF5C6A; --c2:#FF8C42; --c3:#F1EB6B; --c4:#4CAF82; --c5:#00AEBC;
+  --red:#D63B3B; --am:#D4820A; --gr:#1A8C5A;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:var(--pg);color:var(--ch)}
+
+/* MASTHEAD */
+.mh{background:var(--wh);border-bottom:3px solid var(--teal);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,174,188,.1)}
+.mh-top{display:flex;align-items:center;justify-content:space-between;padding:10px 40px;border-bottom:1px solid var(--ru)}
+.logo img{height:44px;width:auto}
+.hr{display:flex;align-items:center;gap:14px}
+.chip{background:var(--ch);color:var(--tl);font-family:'Nunito',sans-serif;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:4px 12px;border-radius:20px}
+.rm{text-align:right}
+.rc{font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;color:var(--ch)}
+.rd{font-family:'Roboto Mono',monospace;font-size:11px;color:var(--tm);margin-top:2px}
+.rt{font-size:10px;color:var(--gl);text-transform:uppercase;letter-spacing:.12em;margin-top:1px}
+.tabs{display:flex;padding:0 40px;overflow-x:auto;gap:2px}
+.tab{padding:9px 18px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;color:var(--chl);letter-spacing:.05em;text-transform:uppercase;cursor:pointer;border-bottom:3px solid transparent;transition:all .15s;white-space:nowrap;user-select:none}
+.tab:hover{color:var(--teal)}.tab.active{color:var(--teal);border-bottom-color:var(--teal)}
+
+/* PANELS */
+.panel{display:none;padding:28px 40px 60px;max-width:1200px;margin:0 auto}
+.panel.active{display:block}
+
+/* GLANCE BANNER */
+.banner{background:var(--ch);border-radius:12px;padding:24px 30px;margin-bottom:24px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;position:relative;overflow:hidden}
+.banner::after{content:'';position:absolute;top:-30px;right:-30px;width:160px;height:160px;border-radius:50%;border:24px solid rgba(255,255,255,.04)}
+.bn-t{font-family:'Nunito',sans-serif;font-size:19px;font-weight:800;color:var(--wh);margin-bottom:6px}
+.bn-b{font-size:13px;color:rgba(255,255,255,.7);line-height:1.7;max-width:640px}
+.bn-b strong{color:var(--tl)}.bn-b .hl{color:var(--ye);font-weight:700}
+.bn-stats{display:flex;gap:10px;flex-shrink:0}
+.pill{display:flex;flex-direction:column;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:12px 14px;min-width:78px;text-align:center}
+.pill .pn{font-family:'Nunito',sans-serif;font-size:24px;font-weight:900;color:var(--wh);line-height:1}
+.pill .pl{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.45);margin-top:4px}
+.pill.pt{background:rgba(0,174,188,.22);border-color:rgba(0,174,188,.38)}.pill.pt .pn{color:var(--tl)}
+.pill.pc{background:rgba(255,115,118,.18);border-color:rgba(255,115,118,.3)}.pill.pc .pn{color:#FFB3B4}
+.pill.py{background:rgba(241,235,107,.15);border-color:rgba(241,235,107,.3)}.pill.py .pn{color:var(--ye)}
+
+/* SECTION */
+.sec{font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;color:var(--ch);margin-bottom:5px;display:flex;align-items:center;gap:8px}
+.sec::before{content:'';display:inline-block;width:4px;height:18px;background:var(--teal);border-radius:2px;flex-shrink:0}
+.secd{font-size:12.5px;color:var(--chl);line-height:1.6;margin-bottom:16px;margin-left:12px}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px}
+.g12{display:grid;grid-template-columns:1fr 2fr;gap:16px;margin-bottom:20px}
+.g21{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:20px}
+
+/* CARD */
+.card{background:var(--wh);border-radius:12px;padding:20px 22px;box-shadow:0 1px 3px rgba(0,0,0,.04),0 3px 12px rgba(0,174,188,.05);border:1px solid var(--ru)}
+.card-t{font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--gl);margin-bottom:14px}
+
+/* HORIZONTAL BAR CHART */
+.hbar-chart{display:flex;flex-direction:column;gap:8px}
+.hbar-row{display:flex;align-items:center;gap:10px}
+.hbar-label{font-family:'Outfit',sans-serif;font-size:12px;color:var(--chl);width:72px;text-align:right;flex-shrink:0}
+.hbar-track{flex:1;background:#F0F2F4;border-radius:6px;height:24px;position:relative;overflow:hidden}
+.hbar-fill{height:100%;border-radius:6px;transition:width .6s ease;display:flex;align-items:center;padding-left:8px}
+.hbar-val{font-family:'Roboto Mono',monospace;font-size:11px;font-weight:500;color:var(--ch);min-width:28px;text-align:right;flex-shrink:0}
+.c-vl{background:var(--c1)} /* Very Low / score 1 */
+.c-lo{background:var(--c2)} /* Low / score 2 */
+.c-mo{background:var(--c3)} /* Moderate / score 3 */
+.c-go{background:var(--c4)} /* Good / score 4 */
+.c-ex{background:var(--c5)} /* Excellent / score 5 */
+
+/* SCORE BAND */
+.sband{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:20px}
+.sblock{border-radius:10px;padding:14px 10px;text-align:center;border-top:4px solid transparent}
+.sblock .sd{font-family:'Nunito',sans-serif;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;margin-bottom:6px}
+.sblock .sv{font-family:'Nunito',sans-serif;font-size:30px;font-weight:900;line-height:1}
+.sblock .sm{font-size:10px;color:var(--gl);margin-top:2px}
+.sr{background:#FEF0EF;border-top-color:var(--red)}.sr .sv{color:var(--red)}.sr .sd{color:#8B2419}
+.sa{background:#FEF5E7;border-top-color:var(--am)}.sa .sv{color:var(--am)}.sa .sd{color:#8B5209}
+.sg{background:#E5F8EE;border-top-color:var(--gr)}.sg .sv{color:var(--gr)}.sg .sd{color:#0E5E38}
+.st{background:var(--tb);border-top-color:var(--teal)}.st .sv{color:var(--tm)}.st .sd{color:var(--tm)}
+
+/* MOOD CALENDAR */
+.cal-wrap{margin-bottom:20px}
+.cal-labels{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px}
+.cal-lbl{font-family:'Nunito',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gl);text-align:center}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-day{border-radius:8px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;cursor:default}
+.cal-day .cdn{font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;line-height:1}
+.cal-day .cds{font-family:'Roboto Mono',monospace;font-size:9px;margin-top:2px;opacity:.85}
+.cal-day .cdp{position:absolute;top:3px;right:4px;font-family:'Nunito',sans-serif;font-size:8px;font-weight:800;background:rgba(0,0,0,.15);border-radius:3px;padding:1px 3px;color:white}
+.d-rest{background:var(--ow);color:var(--gl)}
+.d-great{background:#D1FAE5;color:var(--gr)}
+.d-good{background:var(--tb);color:var(--tm)}
+.d-watch{background:#FEF5E7;color:var(--am)}
+.d-concern{background:#FEF0EF;color:var(--red)}
+.cal-legend{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0 0;align-items:center}
+.cl-item{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--chl)}
+.cl-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+
+/* FLAG CARDS */
+.flag-card{background:var(--wh);border-radius:10px;padding:14px 18px;border:1px solid var(--ru);border-left:5px solid transparent;margin-bottom:10px}
+.flag-card.fr{border-left-color:var(--red)}.flag-card.fa{border-left-color:var(--am)}.flag-card.ft{border-left-color:var(--teal)}
+.flag-d{font-family:'Roboto Mono',monospace;font-size:10.5px;color:var(--gl);margin-bottom:4px}
+.flag-t{font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:var(--ch);margin-bottom:4px}
+.flag-b{font-size:12.5px;color:var(--chl);line-height:1.6}
+.flag-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.fchip{font-family:'Roboto Mono',monospace;font-size:10.5px;padding:3px 7px;border-radius:4px}
+
+/* INSIGHT BOXES */
+.ins{background:var(--teal);border-radius:8px;padding:13px 16px;margin:12px 0}
+.ins p{font-size:12.5px;color:rgba(255,255,255,.9);line-height:1.7}.ins strong{color:var(--ye)}
+.ind{background:var(--ch);border-radius:8px;padding:13px 16px;margin:12px 0;border-left:4px solid var(--coral)}
+.ind p{font-size:12.5px;color:rgba(255,255,255,.82);line-height:1.7}.ind strong{color:var(--coral)}
+.iny{background:var(--yl);border-radius:8px;padding:13px 16px;margin:12px 0;border-left:4px solid var(--am)}
+.iny p{font-size:12.5px;color:var(--ch);line-height:1.7}.iny strong{color:var(--am)}
+
+/* TABLE */
+.dt{width:100%;border-collapse:collapse;font-size:12.5px}
+.dt th{background:var(--ch);color:var(--tl);font-family:'Nunito',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.11em;padding:8px 11px;text-align:left}
+.dt th:not(:first-child){text-align:center}
+.dt td{padding:8px 11px;border-bottom:1px solid var(--ru)}
+.dt tr:last-child td{border-bottom:none}
+.dt tr:nth-child(even) td{background:var(--ow)}
+.dt td:not(:first-child){text-align:center;font-family:'Roboto Mono',monospace;font-size:12px}
+.tr2{color:var(--red)!important;font-weight:600}.ta2{color:var(--am)!important;font-weight:600}.tg2{color:var(--gr)!important;font-weight:600}.tb2{font-weight:700}
+
+/* BADGE */
+.bx{display:inline-block;font-family:'Nunito',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:2px 7px;border-radius:4px}
+.bxr{background:#FEE2E0;color:var(--red)}.bxa{background:#FEF3CD;color:var(--am)}.bxg{background:#D1FAE5;color:var(--gr)}.bxt{background:var(--tb);color:var(--tm)}.bxc{background:var(--cl);color:#C0484B}
+
+/* ACTION CARDS */
+.ac{background:var(--wh);border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,174,188,.07);margin-bottom:14px;display:flex;border:1px solid var(--ru)}
+.an{width:48px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;color:var(--wh)}
+.ab{padding:15px 18px;flex:1}
+.al{font-family:'Nunito',sans-serif;font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;margin-bottom:4px}
+.at{font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:var(--ch);margin-bottom:5px}
+.ax{font-size:13px;color:var(--ch);line-height:1.7;margin-bottom:8px}
+.ad{font-size:12.5px;color:var(--chl);line-height:1.6;padding:8px 12px;background:var(--tb);border-radius:6px;border-left:3px solid var(--teal)}
+.ad strong{color:var(--ch)}
+
+/* VOICE CARDS */
+.vc{background:var(--wh);border-radius:10px;padding:15px 16px 12px 42px;border:1px solid var(--ru);margin-bottom:10px;position:relative}
+.vc::before{content:'C';font-family:'Nunito',sans-serif;font-size:50px;font-weight:900;color:var(--tb);position:absolute;top:4px;left:10px;line-height:1}
+.vr{font-family:'Nunito',sans-serif;font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px}
+.vt{font-size:13.5px;font-style:italic;color:var(--ch);line-height:1.6}
+.vtag{display:inline-block;font-family:'Nunito',sans-serif;font-size:9.5px;font-weight:700;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-top:8px}
+
+/* QUOTE */
+.qb{border-left:4px solid var(--teal);padding:12px 16px;background:var(--tb);border-radius:0 8px 8px 0;margin:12px 0}
+.qb blockquote{font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:var(--ch);line-height:1.6;font-style:italic;margin-bottom:4px}
+.qb cite{font-size:11.5px;color:var(--gl);font-style:normal}
+.qb.dk{background:var(--ch);border-left-color:var(--coral)}.qb.dk blockquote{color:var(--wh)}.qb.dk cite{color:rgba(255,255,255,.38)}
+
+/* WEEKLY FLAG BAR */
+.wfbar{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.wfrow{display:flex;align-items:center;gap:10px}
+.wflbl{font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;color:var(--ch);width:32px;flex-shrink:0}
+.wftrack{flex:1;background:#F0F2F4;border-radius:6px;height:28px;overflow:hidden}
+.wffill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;transition:width .6s ease}
+.wffill span{font-family:'Roboto Mono',monospace;font-size:11px;font-weight:500;color:var(--ch)}
+.wfval{font-family:'Roboto Mono',monospace;font-size:11px;color:var(--chl);min-width:60px;text-align:right;flex-shrink:0}
+
+.sp{height:22px}.spsm{height:10px}
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-thumb{background:var(--teal);border-radius:2px}
+.footer{text-align:center;font-size:11px;color:var(--gl);padding:16px 40px 36px;border-top:2px solid var(--tb);margin-top:6px}
+.footer strong{color:var(--teal)}
+</style>
+</head>
+<body>
+
+<div class="mh">
+  <div class="mh-top">
+    <div class="logo"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAB9KADAAQAAAABAAAB9AAAAAD/7QA4UGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAAA4QklNBCUAAAAAABDUHYzZjwCyBOmACZjs+EJ+/8AAEQgB9AH0AwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/bAEMAAQEBAQEBAgEBAgMCAgIDBAMDAwMEBgQEBAQEBgcGBgYGBgYHBwcHBwcHBwgICAgICAkJCQkJCwsLCwsLCwsLC//bAEMBAgICAwMDBQMDBQsIBggLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLC//dAAQAIP/aAAwDAQACEQMRAD8A/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/Q/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/R/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/S/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/T/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/U/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/V/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/W/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/X/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/Q/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/R/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/S/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/T/v4ooooAKKKKACiiigAooooAKKKKACiiigArj/HHj/wX8NtCk8S+OtSg0yyj/wCWk7bdx9FHVmPZVBJ9K8a/aY/aU8K/s6eEBqeoAXmsXoZbCxBwZGHV3P8ADGvGT1PQc9PxX0Hwn+0T+3L8Q59WuJTcrEcS3U5MdjZRk5CIBnHXhFBc9Tnlq9PB5e6sfa1XywXX/I+azniJYWosLhoe0rvaK6ev+XbV2Pvf4h/8FP8AwFo11NYfDnQrjWdmVW5uZBaxMfULtdyPqENfMGof8FNfj7dXDPYado1vHn5V8iVyB7kzc/kK+2PBH7Cn7Nnwb0JvEHxWuE1iSPaZLrU5Rb2sZ9FjDBefR2c+lbs37Qf7BHgQ/wBjWM2ixqnGLLTTKnH+1FCVP1ya7YSwi0o0HPz1/r8EeJWpZvK08bjoUb/Zulb8vzZ8Y+E/+ConxQsbsDxp4f03UbfuLUyWsn/f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+CVGrL3tba35bvRXe9j8t/hl8FP2W/2y/Dl38SINIk8OavJcyJeW2n3g3RtnhyhTYN4OciMAnPU5rwP41fDTX/2GvFPh/wASfCPxhdXRvrgqdKmYB3RMffRPlkRs7SSgIJGOeR9d+Mf+Cc3wt1bxHN4m8B6vqHheWZi3lWhDQpu6hB8rKPbcQOg4rf8Ahb+wF8LfAHi+38eeI9QvvEupWriWI3pAiEq42uVGSzLjjcxHt0r0442jFt+0bh/I1f5XZ8zUyTF1IqH1aMKt1+9jK3XWXKknd9j7qjZnjV2G0kAkelPoorwD74KKKKACiiigAooooAKKKKACiiigD//R/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/S/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/T/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/U/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/V/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/W/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/X/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/Q/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/R/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/S/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/T/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/U/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/V/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/W/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/Z" alt="BRW"></div>
+    <div class="hr">
+      <div class="chip">&#9632; Manager&#39;s Edition</div>
+      <div class="rm">
+        <div class="rc">Neolokal</div>
+        <div class="rd">February 2026 &middot; Baseline Edition</div>
+        <div class="rt">Management Team &middot; Confidential</div>
+      </div>
+    </div>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="show('pulse',this)">Team Pulse</div>
+    <div class="tab" onclick="show('daily',this)">Day by Day</div>
+    <div class="tab" onclick="show('areas',this)">FOH vs BOH</div>
+    <div class="tab" onclick="show('focus',this)">This Month&#39;s Focus</div>
+    <div class="tab" onclick="show('voices',this)">Staff Voices</div>
+  </div>
+</div>
+
+<!-- ===== TAB 1: TEAM PULSE ===== -->
+<div id="panel-pulse" class="panel active">
+  <div class="banner">
+    <div>
+      <div class="bn-t">How Was Your Team in February?</div>
+      <div class="bn-b">February was a month of <strong>two clear halves</strong>. The first two weeks were the hardest &mdash; high professional flag rates, low Physical and Recovery scores, staff arriving already under pressure. By Week 3, all five dimensions had recovered significantly. <span class="hl">The team ended the month stronger than they started it.</span><br><br>The most important signal: <strong>work conditions, not personal life, drove almost all low scores</strong> &mdash; and those conditions improved as the month went on. This is directly within your control as a manager.</div>
+    </div>
+    <div class="bn-stats">
+      <div class="pill pt"><div class="pn">167</div><div class="pl">Check-ins</div></div>
+      <div class="pill pt"><div class="pn">3.25</div><div class="pl">Avg Score</div></div>
+      <div class="pill pc"><div class="pn">49%</div><div class="pl">Had a Low Score</div></div>
+      <div class="pill py"><div class="pn">80%</div><div class="pl">Work-Related</div></div>
+    </div>
+  </div>
+
+  <!-- MOOD CALENDAR -->
+  <div class="sec">Team Mood &mdash; February Day by Day</div>
+  <p class="secd">Average score across all check-ins each day. The number in the top corner shows how many work-related (professional) flags were raised that day.</p>
+  <div class="card" style="margin-bottom:20px">
+    <div class="cal-labels">
+      <div class="cal-lbl">Mon</div><div class="cal-lbl">Tue</div><div class="cal-lbl">Wed</div>
+      <div class="cal-lbl">Thu</div><div class="cal-lbl">Fri</div><div class="cal-lbl">Sat</div><div class="cal-lbl">Sun</div>
+    </div>
+    <div class="cal-grid" id="cal"></div>
+    <div class="cal-legend">
+      <div class="cl-item"><div class="cl-dot" style="background:#D1FAE5"></div>Great (3.7+)</div>
+      <div class="cl-item"><div class="cl-dot" style="background:var(--tb)"></div>Good (3.2&ndash;3.6)</div>
+      <div class="cl-item"><div class="cl-dot" style="background:#FEF5E7"></div>Watch (2.8&ndash;3.1)</div>
+      <div class="cl-item"><div class="cl-dot" style="background:#FEF0EF"></div>Concern (&lt;2.8)</div>
+      <div class="cl-item"><div class="cl-dot" style="background:var(--ow)"></div>Rest / No data</div>
+      <div class="cl-item" style="margin-left:8px;font-size:11px;color:var(--am);font-weight:600">&#9650; = work-related flags that day</div>
+    </div>
+  </div>
+
+  <!-- SCORE OVERVIEW -->
+  <div class="sec">February Scores &mdash; Overall</div>
+  <div class="sband">
+    <div class="sblock sa"><div class="sd">Physical</div><div class="sv">3.19</div><div class="sm">out of 5</div></div>
+    <div class="sblock sa"><div class="sd">Mental</div><div class="sv">3.20</div><div class="sm">out of 5</div></div>
+    <div class="sblock sa"><div class="sd">Emotional</div><div class="sv">3.14</div><div class="sm">out of 5</div></div>
+    <div class="sblock sa"><div class="sd">Recovery</div><div class="sv">3.10</div><div class="sm">out of 5</div></div>
+    <div class="sblock st"><div class="sd">Work Env</div><div class="sv">3.64</div><div class="sm">out of 5</div></div>
+  </div>
+
+  <div class="g2">
+    <!-- SCORE DISTRIBUTION OVERALL -->
+    <div class="card">
+      <div class="card-t">How Scores Were Distributed &mdash; All Check-ins</div>
+      <div id="dist-overall"></div>
+    </div>
+
+    <!-- WEEKLY TABLE -->
+    <div class="card">
+      <div class="card-t">Week-by-Week Movement</div>
+      <table class="dt"><thead><tr><th>Week</th><th>Phys</th><th>Ment</th><th>Emot</th><th>Recv</th><th>WEnv</th></tr></thead><tbody>
+        <tr><td class="tb2">Wk 1 &middot; Feb 12&ndash;15</td><td class="ta2">2.91</td><td class="ta2">2.87</td><td class="ta2">2.87</td><td class="ta2">2.80</td><td class="ta2">3.41</td></tr>
+        <tr><td class="tb2">Wk 2 &middot; Feb 17&ndash;21</td><td class="ta2">3.18</td><td class="ta2">3.31</td><td class="ta2">3.19</td><td class="ta2">3.15</td><td class="tg2">3.69</td></tr>
+        <tr><td class="tb2">Wk 3 &middot; Feb 24&ndash;27</td><td class="tg2">3.74</td><td class="tg2">3.69</td><td class="tg2">3.60</td><td class="tg2">3.63</td><td class="tg2">4.00</td></tr>
+        <tr style="background:#e6f8fa"><td class="tb2" style="color:var(--tm)">&#8593; Month gain</td><td class="tg2">+0.83</td><td class="tg2">+0.82</td><td class="tg2">+0.73</td><td class="tg2">+0.83</td><td class="tg2">+0.59</td></tr>
+      </tbody></table>
+      <div class="ins" style="margin-top:12px"><p>Every single dimension improved week-on-week. <strong>Week 3 was the strongest week of the month</strong> across all five dimensions. Understanding what changed between Week 1 and Week 3 is the most important question going into March.</p></div>
+
+      <div class="card-t" style="margin-top:18px">Work-Related Flags by Week</div>
+      <div class="wfbar" id="wfbar"></div>
+      <div class="iny" style="margin-top:12px"><p><strong>71 professional flags in Week 1, just 9 in Week 3.</strong> This is not a personal wellbeing story &mdash; it is a working conditions story. When conditions improved, flags almost disappeared.</p></div>
+    </div>
+  </div>
+
+  <!-- POST SHIFT NOTE -->
+  <div class="ind"><p><strong>Note on post-shift data:</strong> Only 34 of 167 check-ins (20%) were post-shift. Reliable post-shift data only exists for Feb 12 (8 check-ins) and Feb 13 (10 check-ins). After that, most days had only 1 post-shift response &mdash; too few to draw conclusions from. <strong>Increasing post-shift participation is the single biggest data gap for March.</strong></p></div>
+</div>
+
+<!-- ===== TAB 2: DAY BY DAY ===== -->
+<div id="panel-daily" class="panel">
+  <div class="banner">
+    <div>
+      <div class="bn-t">Day-by-Day &mdash; What the Data Shows</div>
+      <div class="bn-b">13 days of data across February. Each day tells a different story. The professional flags are the key signal &mdash; <strong>when flags are high, work conditions are the cause</strong>. When they drop, something got better. The question for March is: what made that happen?</div>
+    </div>
+    <div class="bn-stats">
+      <div class="pill pc"><div class="pn">115</div><div class="pl">Prof. Flags Total</div></div>
+      <div class="pill py"><div class="pn">13</div><div class="pl">Days of Data</div></div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div>
+      <div class="sec">Flagged Days &mdash; Week 1</div>
+      <p class="secd">The hardest week. Professional flags were highest, scores lowest.</p>
+
+      <div class="flag-card fr">
+        <div class="flag-d">Thursday 12 February &middot; n=29 (21 pre, 8 post)</div>
+        <div class="flag-t">Opening day &mdash; team arrived already under pressure</div>
+        <div class="flag-b">Average score 2.82. 25 professional flags &mdash; the joint highest day of the month. All five dimensions below 3.0. The 8 post-shift check-ins (the largest post-shift sample of the month) averaged lower across all dimensions, confirming the shift made things worse.</div>
+        <div class="flag-chips">
+          <span class="fchip" style="background:#FEF0EF;color:var(--red)">Avg 2.82</span>
+          <span class="fchip" style="background:#FEE2E0;color:var(--red)">25 Prof. Flags</span>
+          <span class="fchip" style="background:#FEF5E7;color:var(--am)">48 Low Scores</span>
+        </div>
+      </div>
+
+      <div class="flag-card fr">
+        <div class="flag-d">Friday 13 February &middot; n=28 (18 pre, 10 post)</div>
+        <div class="flag-t">Highest professional flag day of the month</div>
+        <div class="flag-b">29 professional flags &mdash; the most of any single day. Despite a slightly higher average score (3.16), the flag volume tells you work conditions were under severe strain. 10 post-shift check-ins (the best post-shift sample in the data) show scores deteriorating significantly by end of shift.</div>
+        <div class="flag-chips">
+          <span class="fchip" style="background:#FEF5E7;color:var(--am)">Avg 3.16</span>
+          <span class="fchip" style="background:#FEE2E0;color:var(--red)">29 Prof. Flags</span>
+          <span class="fchip" style="background:#FEF5E7;color:var(--am)">45 Low Scores</span>
+        </div>
+      </div>
+
+      <div class="flag-card fa">
+        <div class="flag-d">Saturday 14 February &middot; n=12 (9 pre, 3 post)</div>
+        <div class="flag-t">Valentine&#39;s Day &mdash; high-pressure service, scores stay low</div>
+        <div class="flag-b">14 professional flags across only 12 check-ins &mdash; the highest flag-per-person ratio of the month. Average 2.98. Expected to be a difficult service day and the data confirms it.</div>
+        <div class="flag-chips">
+          <span class="fchip" style="background:#FEF5E7;color:var(--am)">Avg 2.98</span>
+          <span class="fchip" style="background:#FEF5E7;color:var(--am)">14 Prof. Flags</span>
+        </div>
+      </div>
+
+      <div class="flag-card fa">
+        <div class="flag-d">Monday 17 February &middot; n=16 (15 pre, 1 post)</div>
+        <div class="flag-t">Start of Week 2 &mdash; team not arriving recovered after days off</div>
+        <div class="flag-b">Average 2.96 &mdash; lower than expected after a break. 10 professional flags. Staff were not arriving rested from their days off, consistent with the survey finding that many cannot switch off after work. Recovery was the lowest-scoring dimension on this day.</div>
+        <div class="flag-chips">
+          <span class="fchip" style="background:#FEF5E7;color:var(--am)">Avg 2.96</span>
+          <span class="fchip" style="background:#FEF5E7;color:var(--am)">10 Prof. Flags</span>
+          <span class="fchip" style="background:#FEF5E7;color:var(--am)">30 Low Scores</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec">The Turnaround &mdash; Weeks 2 &amp; 3</div>
+      <p class="secd">Flags dropped sharply. Something changed. Worth understanding what.</p>
+
+      <div class="flag-card ft">
+        <div class="flag-d">Wednesday 18 February &middot; n=17 (13 pre, 4 post)</div>
+        <div class="flag-t">First &#39;good&#39; day of the month &mdash; scores cross 3.5</div>
+        <div class="flag-b">Average 3.53 &mdash; the first day above 3.5. Professional flags dropped to 11. Something about conditions on this day was noticeably better than the preceding week. What was different?</div>
+        <div class="flag-chips">
+          <span class="fchip" style="background:var(--tb);color:var(--tm)">Avg 3.53</span>
+          <span class="fchip" style="background:var(--tb);color:var(--tm)">11 Prof. Flags</span>
+        </div>
+      </div>
+
+      <div class="flag-card ft">
+        <div class="flag-d">Monday 24 February &middot; n=8 (8 pre, 0 post)</div>
+        <div class="flag-t">Best day of the month &mdash; average 3.92</div>
+        <div class="flag-b">Highest daily average of February. Only 2 professional flags. All 8 check-ins were pre-shift &mdash; the team arrived in the best shape they had all month. No post-shift data to compare, but the pre-shift mood was the strongest signal in the dataset.</div>
+        <div class="flag-chips">
+          <span class="fchip" style="background:#D1FAE5;color:var(--gr)">Avg 3.92</span>
+          <span class="fchip" style="background:#D1FAE5;color:var(--gr)">2 Prof. Flags</span>
+        </div>
+      </div>
+
+      <div class="flag-card ft">
+        <div class="flag-d">Thursday 26 &amp; Friday 27 February &middot; n=10 each</div>
+        <div class="flag-t">Month closes strong &mdash; 3.90 average, 0&ndash;1 flags</div>
+        <div class="flag-b">The last two days of the month averaged 3.90 each. Feb 27 had zero professional flags &mdash; the first flagless day of the entire programme. The team ended February in a fundamentally different state than they started it.</div>
+        <div class="flag-chips">
+          <span class="fchip" style="background:#D1FAE5;color:var(--gr)">Avg 3.90</span>
+          <span class="fchip" style="background:#D1FAE5;color:var(--gr)">0&ndash;1 Prof. Flags</span>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:4px">
+        <div class="card-t">Daily Summary &mdash; All 13 Days</div>
+        <table class="dt">
+          <thead><tr><th>Date</th><th>n</th><th>Avg</th><th>Prof Flags</th><th>Signal</th></tr></thead>
+          <tbody>
+            <tr><td>Feb 12</td><td>29</td><td class="tr2">2.82</td><td class="tr2">25</td><td><span class="bx bxr">Concern</span></td></tr>
+            <tr><td>Feb 13</td><td>28</td><td class="ta2">3.16</td><td class="tr2">29</td><td><span class="bx bxr">High Flags</span></td></tr>
+            <tr><td>Feb 14</td><td>12</td><td class="ta2">2.98</td><td class="tr2">14</td><td><span class="bx bxa">Watch</span></td></tr>
+            <tr><td>Feb 15</td><td>1</td><td class="tr2">2.20</td><td class="ta2">3</td><td><span class="bx" style="background:#eee;color:var(--gl)">Low Data</span></td></tr>
+            <tr><td>Feb 17</td><td>16</td><td class="ta2">2.96</td><td class="ta2">10</td><td><span class="bx bxa">Watch</span></td></tr>
+            <tr><td>Feb 18</td><td>17</td><td class="tg2">3.53</td><td class="ta2">11</td><td><span class="bx bxt">Improving</span></td></tr>
+            <tr><td>Feb 19</td><td>14</td><td class="tg2">3.34</td><td class="ta2">9</td><td><span class="bx bxt">Good</span></td></tr>
+            <tr><td>Feb 20</td><td>10</td><td class="tg2">3.22</td><td class="ta2">3</td><td><span class="bx bxt">Good</span></td></tr>
+            <tr><td>Feb 21</td><td>5</td><td class="tg2">3.68</td><td class="ta2">2</td><td><span class="bx bxg">Strong</span></td></tr>
+            <tr><td>Feb 24</td><td>8</td><td class="tg2">3.92</td><td class="tg2">2</td><td><span class="bx bxg">Best Day</span></td></tr>
+            <tr><td>Feb 25</td><td>7</td><td class="ta2">3.03</td><td class="ta2">6</td><td><span class="bx bxa">Dip</span></td></tr>
+            <tr><td>Feb 26</td><td>10</td><td class="tg2">3.90</td><td class="tg2">1</td><td><span class="bx bxg">Strong</span></td></tr>
+            <tr><td>Feb 27</td><td>10</td><td class="tg2">3.90</td><td class="tg2">0</td><td><span class="bx bxg">Zero Flags</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 3: FOH vs BOH ===== -->
+<div id="panel-areas" class="panel">
+  <div class="banner">
+    <div>
+      <div class="bn-t">Front of House vs Back of House</div>
+      <div class="bn-b">FOH and BOH tell very different stories. <strong>BOH Physical (2.87) and Recovery (2.81) are the only scores in this report below the watch threshold.</strong> Kitchen staff are carrying the heaviest load. One genuine strength: BOH scores higher than FOH on Work Environment (3.71 vs 3.59) &mdash; kitchen staff value their workplace despite the physical cost.</div>
+    </div>
+    <div class="bn-stats">
+      <div class="pill pt"><div class="pn">98</div><div class="pl">FOH Check-ins</div></div>
+      <div class="pill pc"><div class="pn">69</div><div class="pl">BOH Check-ins</div></div>
+    </div>
+  </div>
+
+  <!-- SCORE BANDS -->
+  <div class="g2">
+    <div>
+      <div class="sec">Front of House &mdash; Monthly Averages</div>
+      <div class="sband" style="grid-template-columns:repeat(5,1fr)">
+        <div class="sblock st"><div class="sd">Physical</div><div class="sv">3.41</div><div class="sm">out of 5</div></div>
+        <div class="sblock sa"><div class="sd">Mental</div><div class="sv">3.30</div><div class="sm">out of 5</div></div>
+        <div class="sblock sa"><div class="sd">Emotional</div><div class="sv">3.26</div><div class="sm">out of 5</div></div>
+        <div class="sblock sa"><div class="sd">Recovery</div><div class="sv">3.31</div><div class="sm">out of 5</div></div>
+        <div class="sblock st"><div class="sd">Work Env</div><div class="sv">3.59</div><div class="sm">out of 5</div></div>
+      </div>
+      <div class="card">
+        <div class="card-t">FOH Score Distribution</div>
+        <div id="dist-foh"></div>
+      </div>
+    </div>
+    <div>
+      <div class="sec">Back of House &mdash; Monthly Averages</div>
+      <div class="sband" style="grid-template-columns:repeat(5,1fr)">
+        <div class="sblock sr"><div class="sd">Physical</div><div class="sv">2.87</div><div class="sm">out of 5</div></div>
+        <div class="sblock sa"><div class="sd">Mental</div><div class="sv">3.07</div><div class="sm">out of 5</div></div>
+        <div class="sblock sa"><div class="sd">Emotional</div><div class="sv">2.99</div><div class="sm">out of 5</div></div>
+        <div class="sblock sr"><div class="sd">Recovery</div><div class="sv">2.81</div><div class="sm">out of 5</div></div>
+        <div class="sblock st"><div class="sd">Work Env</div><div class="sv">3.71</div><div class="sm">out of 5</div></div>
+      </div>
+      <div class="card">
+        <div class="card-t">BOH Score Distribution</div>
+        <div id="dist-boh"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-t">FOH vs BOH &mdash; Side by Side</div>
+      <table class="dt"><thead><tr><th>Dimension</th><th>FOH</th><th>BOH</th><th>Gap</th><th></th></tr></thead><tbody>
+        <tr><td>Physical</td><td class="tg2">3.41</td><td class="tr2">2.87</td><td class="tr2">&minus;0.54</td><td><span class="bx bxr">Urgent</span></td></tr>
+        <tr><td>Recovery</td><td class="tg2">3.31</td><td class="tr2">2.81</td><td class="tr2">&minus;0.50</td><td><span class="bx bxr">Urgent</span></td></tr>
+        <tr><td>Emotional</td><td class="tg2">3.26</td><td class="ta2">2.99</td><td class="ta2">&minus;0.27</td><td><span class="bx bxa">Watch</span></td></tr>
+        <tr><td>Mental</td><td class="ta2">3.30</td><td class="ta2">3.07</td><td class="ta2">&minus;0.23</td><td><span class="bx bxa">Watch</span></td></tr>
+        <tr><td>Work Env</td><td class="tg2">3.59</td><td class="tg2">3.71</td><td class="tg2">+0.12</td><td><span class="bx bxg">BOH Stronger</span></td></tr>
+      </tbody></table>
+      <div class="ind" style="margin-top:12px"><p>BOH scores <strong>higher than FOH on Work Environment</strong>. Kitchen staff value their workplace. The gaps in Physical and Recovery are about the physical cost of the work &mdash; not about culture or belonging.</p></div>
+    </div>
+
+    <div class="card">
+      <div class="card-t">Professional Flags &mdash; FOH vs BOH</div>
+      <table class="dt"><thead><tr><th>Area</th><th>Low Scores</th><th>Prof. Flagged</th><th>%</th></tr></thead><tbody>
+        <tr><td>Front of House</td><td>111</td><td>54</td><td class="ta2">49%</td></tr>
+        <tr><td>Back of House</td><td>101</td><td>61</td><td class="tr2">60%</td></tr>
+      </tbody></table>
+      <div class="iny" style="margin-top:10px"><p><strong>60% of BOH low scores are work-related</strong> vs 49% for FOH. Kitchen conditions are a more significant driver of low wellbeing than front-of-house conditions. This is an operational issue, not a personal one.</p></div>
+
+      <div class="card-t" style="margin-top:16px">BOH Score Distribution by Dimension</div>
+      <div id="dist-boh-dim"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 4: FOCUS ===== -->
+<div id="panel-focus" class="panel">
+  <div class="banner">
+    <div>
+      <div class="bn-t">This Month&#39;s Focus &mdash; March 2026</div>
+      <div class="bn-b">Three actions derived directly from the data and from what your team said. Not programmes, not initiatives &mdash; <strong>specific things you can do this week</strong> that will move the numbers that matter most.</div>
+    </div>
+  </div>
+
+  <div class="ac">
+    <div class="an" style="background:var(--coral)">1</div>
+    <div class="ab">
+      <div class="al" style="color:var(--coral)">Urgent &middot; Kitchen &middot; This Week</div>
+      <div class="at">Build a proper end to the kitchen shift</div>
+      <div class="ax">BOH Physical (2.87) and Recovery (2.81) are the only scores in this report below the watch threshold. Week 1 post-shift data &mdash; the only post-shift sample large enough to be valid &mdash; showed Physical dropping sharply by end of service. Kitchen staff are leaving exhausted and not arriving recovered. This is the single most urgent number in the report.</div>
+      <div class="ad"><strong>Do this:</strong> At the end of each kitchen shift, build in 5&ndash;10 minutes before staff leave &mdash; a fixed, expected moment. A brief stretch, a quiet sit-down, a slower transition out of service pace. Consistent and deliberate. The signal it sends &mdash; that the working day has a proper end &mdash; matters as much as the time itself. Start this week.</div>
+    </div>
+  </div>
+
+  <div class="ac">
+    <div class="an" style="background:var(--am)">2</div>
+    <div class="ab">
+      <div class="al" style="color:var(--am)">Structural &middot; This Month</div>
+      <div class="at">Understand what made Week 3 different from Week 1</div>
+      <div class="ax">Professional flags dropped from 71 in Week 1 to 9 in Week 3. That is not random &mdash; something about working conditions changed. The Feb 24 Monday had the highest average score of the entire month (3.92) with only 2 flags. Feb 27 had zero flags for the first time. Something specific happened in that last week that the first week did not have. Your team felt it.</div>
+      <div class="ad"><strong>Do this:</strong> Think back deliberately. What was different in Week 3? Service flow? Staffing levels? How briefings were run? Whether the kitchen was set up before service? Small structural differences produce outsized effects on how staff feel. If you can identify what changed and protect it in March, scores will continue improving.</div>
+    </div>
+  </div>
+
+  <div class="ac">
+    <div class="an" style="background:var(--teal)">3</div>
+    <div class="ab">
+      <div class="al" style="color:var(--tm)">Programme &middot; Ongoing</div>
+      <div class="at">Get more post-shift check-ins</div>
+      <div class="ax">Only 20% of check-ins in February were post-shift (34 of 167). The days with the most post-shift data &mdash; Feb 12 and Feb 13 &mdash; are the only days where we can actually see what a shift cost each person. Without more post-shift data, the March report will still be missing half the picture. This is the most important data gap to close.</div>
+      <div class="ad"><strong>Do this:</strong> One verbal mention at end of service, every night: &ldquo;Don&rsquo;t forget your 60-second check-in before you go.&rdquo; Nothing more required. Emphasise it is anonymous. Target for March: above 30% post-shift participation. That would give enough data to compare pre and post meaningfully for the first time.</div>
+    </div>
+  </div>
+
+  <div class="sp"></div>
+  <div class="sec">March Targets</div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-t">What to Track in March</div>
+      <table class="dt"><thead><tr><th>Metric</th><th>Feb Result</th><th>March Target</th><th>Priority</th></tr></thead><tbody>
+        <tr><td>BOH Physical avg</td><td class="tr2">2.87</td><td class="tg2">&gt; 3.10</td><td><span class="bx bxc">Urgent</span></td></tr>
+        <tr><td>BOH Recovery avg</td><td class="tr2">2.81</td><td class="tg2">&gt; 3.00</td><td><span class="bx bxc">Urgent</span></td></tr>
+        <tr><td>Prof. flags Wk 1</td><td class="tr2">71</td><td class="tg2">&lt; 40</td><td><span class="bx bxr">High</span></td></tr>
+        <tr><td>Overall Recovery avg</td><td class="ta2">3.10</td><td class="tg2">&gt; 3.25</td><td><span class="bx bxa">Watch</span></td></tr>
+        <tr><td>Post-shift check-ins</td><td class="ta2">20%</td><td class="tg2">&gt; 30%</td><td><span class="bx bxa">Watch</span></td></tr>
+        <tr><td>Work Environment avg</td><td class="tg2">3.64</td><td class="tg2">Maintain</td><td><span class="bx bxg">Protect</span></td></tr>
+        <tr><td>Zero-flag days</td><td class="ta2">1 day</td><td class="tg2">&gt; 3 days</td><td><span class="bx bxt">Build on it</span></td></tr>
+      </tbody></table>
+    </div>
+    <div class="card">
+      <div class="card-t">Questions to Ask Yourself in March</div>
+      <div style="display:flex;flex-direction:column;gap:0">
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--ru)">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-family:Nunito,sans-serif;font-size:11px;font-weight:900;color:white;flex-shrink:0;margin-top:1px">1</div>
+          <div style="font-size:13px;line-height:1.5;color:var(--ch)">What specifically changed between Week 1 and Week 3 that caused professional flags to drop from 71 to 9?</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--ru)">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-family:Nunito,sans-serif;font-size:11px;font-weight:900;color:white;flex-shrink:0;margin-top:1px">2</div>
+          <div style="font-size:13px;line-height:1.5;color:var(--ch)">Is the kitchen team leaving service differently than they were in Week 1? Are there signs of less physical depletion?</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--ru)">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-family:Nunito,sans-serif;font-size:11px;font-weight:900;color:white;flex-shrink:0;margin-top:1px">3</div>
+          <div style="font-size:13px;line-height:1.5;color:var(--ch)">Are there specific service nights that consistently produce higher flags? What do they have in common?</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-family:Nunito,sans-serif;font-size:11px;font-weight:900;color:white;flex-shrink:0;margin-top:1px">4</div>
+          <div style="font-size:13px;line-height:1.5;color:var(--ch)">Are post-shift check-in numbers growing? If not, what is the barrier to staff completing them after service?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 5: VOICES ===== -->
+<div id="panel-voices" class="panel">
+  <div class="banner">
+    <div>
+      <div class="bn-t">Staff Voices &mdash; February 2026</div>
+      <div class="bn-b">7 staff members answered the survey in their own words before the programme began. All responses are anonymous. <strong>Read these as a team, not as individuals.</strong> This is what your staff needed you to hear before anything else.</div>
+    </div>
+    <div class="bn-stats">
+      <div class="pill"><div class="pn">7</div><div class="pl">Responses</div></div>
+      <div class="pill"><div class="pn">3+4</div><div class="pl">Kitchen / Service</div></div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div>
+      <div class="sec">What Staff Would Change</div>
+      <p class="secd">"If you could change one thing for your mental wellbeing at work, what would it be?"</p>
+      <div class="vc">
+        <div class="vr" style="color:var(--tm)">Kitchen Staff</div>
+        <div class="vt">"Working hours and financial anxiety"</div>
+        <span class="vtag" style="background:#FEF5E7;color:var(--am)">Hours &amp; Finance</span>
+      </div>
+      <div class="vc">
+        <div class="vr" style="color:var(--tm)">Kitchen Staff</div>
+        <div class="vt">"A more planned and organised working environment"</div>
+        <span class="vtag" style="background:var(--tb);color:var(--tm)">Structure &amp; Planning</span>
+      </div>
+      <div class="vc">
+        <div class="vr" style="color:var(--ch)">Service Staff</div>
+        <div class="vt">"The mindset of people who support the old system"</div>
+        <span class="vtag" style="background:var(--cl);color:#C0484B">Team Dynamics</span>
+      </div>
+      <div class="vc">
+        <div class="vr" style="color:var(--ch)">Service Staff</div>
+        <div class="vt">"Stress"</div>
+        <span class="vtag" style="background:#FEF5E7;color:var(--am)">Stress &amp; Pressure</span>
+      </div>
+
+      <div class="sec" style="margin-top:18px">What Concerns Staff Most</div>
+      <p class="secd">Top-rated priorities from the survey (rated Very Important by most respondents)</p>
+      <div class="card">
+        <div id="dist-survey"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec">How Staff Feel at End of Shift</div>
+      <p class="secd">"How do you feel at the end of a typical working day?"</p>
+      <div class="qb dk"><blockquote>"Bitkin ve t&#252;kenmi&#351;"</blockquote><cite>Exhausted and drained &mdash; Kitchen staff</cite></div>
+      <div class="qb dk"><blockquote>"Halsiz ve yorgun"</blockquote><cite>Weak and tired &mdash; Kitchen staff</cite></div>
+      <div class="qb"><blockquote>"V&#252;cudum gerilmi&#351;, mental olarak rahatlamı&#351;"</blockquote><cite>Body tense, but mentally lighter &mdash; Service staff</cite></div>
+      <div class="qb"><blockquote>"Hafif yorgun"</blockquote><cite>Slightly tired &mdash; Service staff</cite></div>
+      <div class="qb"><blockquote>"Yorgun"</blockquote><cite>Tired &mdash; Service staff</cite></div>
+
+      <div class="ind" style="margin-top:6px"><p>The contrast is clear. <strong>Kitchen staff leave exhausted and drained. Service staff leave tired but often mentally lighter.</strong> The physical cost of kitchen work is not being offset by any recovery time within the shift.</p></div>
+
+      <div class="sec" style="margin-top:18px">One Line That Matters</div>
+      <div class="qb" style="border-left-width:5px;padding:16px 20px;margin-top:8px">
+        <blockquote style="font-size:17px">"Happy staff = happy guest = happy boss."</blockquote>
+        <cite>&mdash; Neolokal staff member, February 2026</cite>
+      </div>
+      <p style="font-size:13px;color:var(--chl);line-height:1.7;margin:10px 0 0 12px">Your team already understands the connection between their own wellbeing and the quality of the guest experience. They are not asking to work less &mdash; they are asking to be looked after while they work hard. That is a strong foundation to build on.</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <strong>The BreakRoom Wellness</strong> &middot; Neolokal &middot; February 2026 &middot; Manager&#39;s Edition &middot; Confidential<br>
+  167 Daily Pulse check-ins &middot; Feb 12&ndash;27, 2026 &middot; All data is anonymous and aggregated &middot; Next report: March 2026
+</div>
+
+<script>
+function show(id, el) {
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+  document.getElementById('panel-'+id).classList.add('active');
+  el.classList.add('active');
+}
+
+// MOOD CALENDAR DATA (real from CSV analysis)
+var calDays = [
+  // Feb 2026: Feb 1=Sunday. Grid is Mon-Sun, 5 rows x 7 cols
+  // Row 0: empty Mon-Sat, then Feb 1 Sun
+  null, null, null, null, null, null, [1,null,'rest',0,null],
+  // Row 1: Feb 2 Mon - Feb 8 Sun (no data)
+  [2,null,'rest',0,null],[3,null,'rest',0,null],[4,null,'rest',0,null],
+  [5,null,'rest',0,null],[6,null,'rest',0,null],[7,null,'rest',0,null],[8,null,'rest',0,null],
+  // Row 2: Feb 9 Mon - Feb 15 Sun (data Thu12, Fri13, Sat14, Sun15)
+  [9,null,'rest',0,null],[10,null,'rest',0,null],[11,null,'rest',0,null],
+  [12,2.82,'concern',25,null],[13,3.16,'watch',29,null],[14,2.98,'watch',14,null],[15,2.20,'concern',3,'1 check-in'],
+  // Row 3: Feb 16 Mon - Feb 22 Sun (data Tue17, Wed18, Thu19, Fri20, Sat21)
+  [16,null,'rest',0,null],[17,2.96,'watch',10,null],[18,3.53,'good',11,null],
+  [19,3.34,'good',9,null],[20,3.22,'good',3,null],[21,3.68,'good',2,null],[22,null,'rest',0,null],
+  // Row 4: Feb 23 Mon - Feb 28 Sat + empty Sun (data Tue24, Wed25, Thu26, Fri27)
+  [23,null,'rest',0,null],[24,3.92,'great',2,null],[25,3.03,'watch',6,null],
+  [26,3.90,'great',1,null],[27,3.90,'great',0,null],[28,null,'rest',0,null],null
+];
+
+function buildCal() {
+  var el = document.getElementById('cal');
+  calDays.forEach(function(d) {
+    var div = document.createElement('div');
+    if (!d || !d[0]) {
+      // empty padding cell
+      div.className = 'cal-day d-rest';
+      div.innerHTML = '';
+    } else if (!d[1]) {
+      // day exists but no data (rest day)
+      div.className = 'cal-day d-rest';
+      div.innerHTML = '<div class="cdn" style="opacity:.35">'+d[0]+'</div>';
+    } else {
+      var cls = 'cal-day d-' + d[2];
+      div.className = cls;
+      var flagHtml = (d[3] > 0) ? '<div class="cdp">&#9650;'+d[3]+'</div>' : '';
+      var noteHtml = d[4] ? '<div class="cds" style="font-size:8px">'+d[4]+'</div>' : '<div class="cds">'+d[1].toFixed(2)+'</div>';
+      div.innerHTML = flagHtml + '<div class="cdn">'+d[0]+'</div>' + noteHtml;
+      div.title = 'Feb '+d[0]+' | Avg: '+d[1]+' | Prof flags: '+d[3];
+    }
+    el.appendChild(div);
+  });
+}
+
+// HORIZONTAL BAR CHARTS
+var colors = {vl:'#FF5C6A',lo:'#FF8C42',mo:'#F1EB6B',go:'#4CAF82',ex:'#00AEBC'};
+var labels = ['Very Low (1)','Low (2)','Moderate (3)','Good (4)','Excellent (5)'];
+var colorArr = [colors.vl, colors.lo, colors.mo, colors.go, colors.ex];
+
+function makeDistChart(containerId, datasets) {
+  // datasets = array of {label, data:[1,2,3,4,5 counts], total}
+  var html = '';
+  datasets.forEach(function(ds) {
+    html += '<div style="margin-bottom:14px"><div style="font-family:Nunito,sans-serif;font-size:11px;font-weight:700;color:var(--gl);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">'+ds.label+'</div>';
+    html += '<div class="hbar-chart">';
+    var maxVal = Math.max.apply(null, ds.data);
+    ds.data.forEach(function(val, i) {
+      var pct = ds.total > 0 ? Math.round(val / ds.total * 100) : 0;
+      var barW = maxVal > 0 ? Math.round(val / maxVal * 100) : 0;
+      html += '<div class="hbar-row">';
+      html += '<div class="hbar-label">'+labels[i].split(' ')[0]+' ('+labels[i].split('(')[1].replace(')','')+')</div>';
+      html += '<div class="hbar-track"><div class="hbar-fill" style="width:'+barW+'%;background:'+colorArr[i]+'"></div></div>';
+      html += '<div class="hbar-val">'+val+'</div>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+  });
+  document.getElementById(containerId).innerHTML = html;
+}
+
+// Overall distribution
+makeDistChart('dist-overall', [
+  {label:'Physical', data:[22,28,42,47,28], total:167},
+  {label:'Mental',   data:[17,28,50,48,24], total:167},
+  {label:'Emotional',data:[16,29,59,41,22], total:167},
+  {label:'Recovery', data:[23,25,60,30,29], total:167},
+  {label:'Work Environment', data:[5,19,42,66,35], total:167}
+]);
+
+// FOH distribution
+makeDistChart('dist-foh', [
+  {label:'Physical', data:[9,16,22,28,23], total:98},
+  {label:'Mental',   data:[12,11,28,30,17], total:98},
+  {label:'Emotional',data:[9,14,35,23,17], total:98},
+  {label:'Recovery', data:[12,10,35,18,23], total:98},
+  {label:'Work Environment', data:[5,13,20,39,21], total:98}
+]);
+
+// BOH distribution
+makeDistChart('dist-boh', [
+  {label:'Physical', data:[13,12,20,19,5], total:69},
+  {label:'Mental',   data:[5,17,22,18,7], total:69},
+  {label:'Emotional',data:[7,15,24,18,5], total:69},
+  {label:'Recovery', data:[11,15,25,12,6], total:69},
+  {label:'Work Environment', data:[0,6,22,27,14], total:69}
+]);
+
+// BOH dim only (for comparison panel)
+makeDistChart('dist-boh-dim', [
+  {label:'Physical', data:[13,12,20,19,5], total:69},
+  {label:'Recovery', data:[11,15,25,12,6], total:69}
+]);
+
+// Survey priorities chart
+makeDistChart('dist-survey', [
+  {label:'Reduce stress & anxiety',      data:[0,1,0,0,6], total:7},
+  {label:'Manage physical pain',         data:[0,0,1,0,6], total:7},
+  {label:'Improve sleep & recovery',     data:[0,0,0,2,5], total:7},
+  {label:'Protect from burnout',         data:[0,0,0,1,6], total:7},
+  {label:'Improve daily energy & focus', data:[0,0,1,2,4], total:7}
+]);
+
+// Weekly flag bars
+var wfData = [
+  {wk:'Wk 1', flags:71, color:'#FF5C6A'},
+  {wk:'Wk 2', flags:35, color:'#FF8C42'},
+  {wk:'Wk 3', flags:9,  color:'#4CAF82'}
+];
+var wfEl = document.getElementById('wfbar');
+var wfMax = 71;
+var wfHtml = '';
+wfData.forEach(function(d) {
+  var pct = Math.round(d.flags / wfMax * 100);
+  wfHtml += '<div class="wfrow">';
+  wfHtml += '<div class="wflbl">'+d.wk+'</div>';
+  wfHtml += '<div class="wftrack"><div class="wffill" style="width:'+pct+'%;background:'+d.color+'"><span>'+d.flags+' flags</span></div></div>';
+  wfHtml += '</div>';
+});
+wfEl.innerHTML = wfHtml;
+
+buildCal();
+</script>
+</body>
+</html>
